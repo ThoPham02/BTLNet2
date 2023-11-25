@@ -7,6 +7,9 @@
     text-decoration: none;
     color: rgb(59, 45, 45);
 }
+.headerr_2 {
+    display: flex;
+}
 .backgound-slice{  
     background-image: url('../../imgs/background.jpg');
     background-size: cover;
@@ -17,7 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    margin-bottom: 30px;
 }
 @keyframes slideInDown {
     0% {
