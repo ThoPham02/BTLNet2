@@ -162,10 +162,5 @@ namespace HotelManagement.Controllers
             var rooms = await _context.Room.ToListAsync();
             return PartialView("_RoomListPartial", rooms);
         }
-
-        public IActionResult ToBook()
-        {
-            return View("~Views/Home/ToBook.cshtml");
-        }
     }
 }
