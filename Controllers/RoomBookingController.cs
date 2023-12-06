@@ -10,6 +10,7 @@ using HotelManagement.Models;
 
 namespace HotelManagement.Controllers
 {
+
     public class RoomBookingController : Controller
     {
         private readonly ApplicationDbContext _context;
