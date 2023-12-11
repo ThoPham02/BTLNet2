@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement.Data;
 using HotelManagement.Models;
+using HotelManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole> ()
     .AddEntityFrameworkStores<ApplicationDbContext> ()
     .AddDefaultTokenProviders ();
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
+builder.Services.AddSingleton<IEmailSender, SendMailService>();
+builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
 
 builder.Services.Configure<IdentityOptions> (options => {
     // Thiết lập về Password
@@ -55,7 +61,7 @@ builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 });
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+builder.Services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
