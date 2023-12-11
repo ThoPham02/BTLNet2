@@ -25,7 +25,7 @@ namespace HotelManagement.Controllers
             return View(await _context.Room.ToListAsync());
         }
 
-       
+
 
         // GET: Room/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -161,6 +161,22 @@ namespace HotelManagement.Controllers
         {
             var rooms = await _context.Room.ToListAsync();
             return PartialView("_RoomListPartial", rooms);
+        }
+
+        [HttpPost]
+        public IActionResult AddRoom([Bind("RoomID,Name,Type,Price")] Room room)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(room);
+                _context.SaveChanges();
+
+                // Trả về partial view với dữ liệu room để hiển thị thông tin mới thêm
+                return PartialView("_RoomInfoPartial", room);
+            }
+
+            // Nếu có lỗi, trả về partial view với model chứa thông tin lỗi để hiển thị
+            return PartialView("_RoomInfoPartial", room);
         }
     }
 }
