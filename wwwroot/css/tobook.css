@@ -3,7 +3,35 @@
     height: 100px;
     background-color: #ac9c86;
 }
-
+.icon_tobook{
+    position: fixed;
+    bottom: 50%;
+    right: 20px;
+    background-color: #ac9c86;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.popup {
+    width: 400px;
+    height: 200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 12px 12px 22px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    display: none;
+    
+}
 .step {
     margin-top: 30px;
 }
@@ -33,6 +61,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color: #c9ac83;
 }
 
 .search_date {
@@ -77,13 +106,13 @@
 }
 
 .room-cash {
+    box-shadow: 9px 10px 9px rgba(0, 0, 0, 0.3);
     width: 30%;
     border: #ac9c86 solid 1px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
-
+    margin: 20px;
 }
 
 .room_img {
