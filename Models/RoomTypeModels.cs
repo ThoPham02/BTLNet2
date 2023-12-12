@@ -9,6 +9,8 @@ namespace HotelManagement.Models
         [Key]
         public int RoomTypeID { get; set; }
         public int RoomID { get; set; }
-        public int Type { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
     }
 }

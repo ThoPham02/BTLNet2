@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelManagement.Models
 {
-    [Table("booking_tbl")]
-    public class Booking{
+    [Table("room_booking_tbl")]
+    public class RoomBooking{
         [Key]
-        public int BookingID { get; set; }
-        public int CustomerID { get; set; }
+        public int RoomBookingID { get; set; }
+        public int RoomID { get; set; }
+        public int OrderID { get; set; }
         public int TimeStart { get; set; }
         public int TimeEnd { get; set; }
+        public int Status { get; set; }
     }
 }
