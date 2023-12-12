@@ -23,10 +23,13 @@ namespace HotelManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BookingDetailID")
+                    b.Property<int>("CustomerID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CustomerID")
+                    b.Property<int>("TimeEnd")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TimeStart")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("BookingID");
@@ -40,21 +43,21 @@ namespace HotelManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BookingID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RoomID")
+                    b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Time")
+                    b.Property<int>("RoomTypeID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("BookingDetailID");
 
-                    b.ToTable("bookingdetail_tbl");
+                    b.ToTable("booking_detail_tbl");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Customers", b =>
@@ -71,24 +74,16 @@ namespace HotelManagement.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Passwork")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Role")
+                    b.Property<int>("UserID")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.HasKey("CustomerID");
 
-                    b.ToTable("Customers_tbl");
+                    b.ToTable("customers_tbl");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Room", b =>
@@ -101,8 +96,8 @@ namespace HotelManagement.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
+                    b.Property<int>("RoomTypeID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("State")
                         .HasColumnType("INTEGER");
@@ -112,17 +107,48 @@ namespace HotelManagement.Migrations
                     b.ToTable("room_tbl");
                 });
 
-            modelBuilder.Entity("HotelManagement.Models.RoomType", b =>
+            modelBuilder.Entity("HotelManagement.Models.RoomBooking", b =>
                 {
-                    b.Property<int>("RoomTypeID")
+                    b.Property<int>("RoomBookingID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RoomID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
+
+                    b.Property<int>("TimeEnd")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TimeStart")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RoomBookingID");
+
+                    b.ToTable("room_booking_tbl");
+                });
+
+            modelBuilder.Entity("HotelManagement.Models.RoomType", b =>
+                {
+                    b.Property<int>("RoomTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoomID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("RoomTypeID");
 

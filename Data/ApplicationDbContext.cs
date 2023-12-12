@@ -15,4 +15,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<BookingDetail> BookingDetail{get; set;}
     public DbSet<Customers> CustomersModels{get; set;}
     public DbSet<RoomType> RoomType{get; set;}
+    public DbSet<RoomBooking> RoomBooking{get; set;}
 }

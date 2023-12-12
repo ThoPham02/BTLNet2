@@ -51,13 +51,30 @@ namespace HotelManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "booking_detail_tbl",
+                columns: table => new
+                {
+                    BookingDetailID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BookingID = table.Column<int>(type: "INTEGER", nullable: false),
+                    RoomTypeID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_booking_detail_tbl", x => x.BookingDetailID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "booking_tbl",
                 columns: table => new
                 {
                     BookingID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CustomerID = table.Column<int>(type: "INTEGER", nullable: false),
-                    BookingDetailID = table.Column<int>(type: "INTEGER", nullable: false)
+                    TimeStart = table.Column<int>(type: "INTEGER", nullable: false),
+                    TimeEnd = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,37 +82,35 @@ namespace HotelManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "bookingdetail_tbl",
-                columns: table => new
-                {
-                    BookingDetailID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoomID = table.Column<int>(type: "INTEGER", nullable: false),
-                    RoomNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    Price = table.Column<int>(type: "INTEGER", nullable: false),
-                    Time = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_bookingdetail_tbl", x => x.BookingDetailID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers_tbl",
+                name: "customers_tbl",
                 columns: table => new
                 {
                     CustomerID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false),
                     FullName = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Phone = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", nullable: false),
-                    Passwork = table.Column<string>(type: "TEXT", nullable: false),
-                    Role = table.Column<int>(type: "INTEGER", nullable: false)
+                    Phone = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers_tbl", x => x.CustomerID);
+                    table.PrimaryKey("PK_customers_tbl", x => x.CustomerID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "room_booking_tbl",
+                columns: table => new
+                {
+                    RoomBookingID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoomID = table.Column<int>(type: "INTEGER", nullable: false),
+                    TimeStart = table.Column<int>(type: "INTEGER", nullable: false),
+                    TimeEnd = table.Column<int>(type: "INTEGER", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_room_booking_tbl", x => x.RoomBookingID);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,8 +119,8 @@ namespace HotelManagement.Migrations
                 {
                     RoomID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    RoomTypeID = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<double>(type: "REAL", nullable: false),
                     State = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -120,7 +135,9 @@ namespace HotelManagement.Migrations
                     RoomTypeID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     RoomID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false)
+                    TypeName = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Price = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -290,13 +307,16 @@ namespace HotelManagement.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "booking_detail_tbl");
+
+            migrationBuilder.DropTable(
                 name: "booking_tbl");
 
             migrationBuilder.DropTable(
-                name: "bookingdetail_tbl");
+                name: "customers_tbl");
 
             migrationBuilder.DropTable(
-                name: "Customers_tbl");
+                name: "room_booking_tbl");
 
             migrationBuilder.DropTable(
                 name: "room_tbl");

@@ -9,7 +9,7 @@ namespace HotelManagement.Models
         [Key]
         public int RoomBookingID { get; set; }
         public int RoomID { get; set; }
-        public int OrderID { get; set; }
+        
         public int TimeStart { get; set; }
         public int TimeEnd { get; set; }
         public int Status { get; set; }
