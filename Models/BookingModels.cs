@@ -9,8 +9,6 @@ namespace HotelManagement.Models
         [Key]
         public int BookingID { get; set; }
         public int CustomerID { get; set; }
-        public int TimeStart { get; set; }
-        public int TimeEnd { get; set; }
-        public int Status { get; set; }
+        public int BookingDetailID { get; set; }
     }
 }

@@ -3,45 +3,19 @@ using System;
 using HotelManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace HotelManagement.Data.Migrations
+namespace HotelManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231203141734_Create_Database")]
-    partial class Create_Database
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
-
-            modelBuilder.Entity("HotelManagement.Models.Bill", b =>
-                {
-                    b.Property<int>("BillID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BookingID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("IncludeExpense")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("BillID");
-
-                    b.ToTable("bill_tbl");
-                });
 
             modelBuilder.Entity("HotelManagement.Models.Booking", b =>
                 {
@@ -49,16 +23,10 @@ namespace HotelManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BookingDetailID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("CustomerID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TimeEnd")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TimeStart")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("BookingID");
@@ -72,21 +40,55 @@ namespace HotelManagement.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BookingID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("Quantity")
+                    b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RoomID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("RoomNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Time")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("BookingDetailID");
 
-                    b.ToTable("booking_detail_tbl");
+                    b.ToTable("bookingdetail_tbl");
+                });
+
+            modelBuilder.Entity("HotelManagement.Models.Customers", b =>
+                {
+                    b.Property<int>("CustomerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Passwork")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CustomerID");
+
+                    b.ToTable("Customers_tbl");
                 });
 
             modelBuilder.Entity("HotelManagement.Models.Room", b =>
@@ -102,7 +104,7 @@ namespace HotelManagement.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("State")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("RoomID");
@@ -110,65 +112,21 @@ namespace HotelManagement.Data.Migrations
                     b.ToTable("room_tbl");
                 });
 
-            modelBuilder.Entity("HotelManagement.Models.RoomBooking", b =>
+            modelBuilder.Entity("HotelManagement.Models.RoomType", b =>
                 {
-                    b.Property<int>("RoomBookingID")
+                    b.Property<int>("RoomTypeID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BookingID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RoomID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TimeEnd")
+                    b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TimeStart")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("RoomTypeID");
 
-                    b.HasKey("RoomBookingID");
-
-                    b.ToTable("room_booking_tbl");
-                });
-
-            modelBuilder.Entity("HotelManagement.Models.User", b =>
-                {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Birthday")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("UserID");
-
-                    b.ToTable("user_tbl");
+                    b.ToTable("roomtype_tbl");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
