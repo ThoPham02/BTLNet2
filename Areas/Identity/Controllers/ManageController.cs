@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 namespace HotelManagement.Areas.Identity.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Identity")]
     [Route("/Member/[action]")]
     public class ManageController : Controller

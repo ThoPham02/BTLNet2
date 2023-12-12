@@ -12,16 +12,15 @@ namespace HotelManagement.Areas.Identity.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Phải nhập {0}")]
-        [Display(Name = "Địa chỉ email hoặc tên tài khoản")]
+        [Display(Name = "địa chỉ email")]
         public string UserNameOrEmail { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Mật khẩu không được để trống")]
         [DataType(DataType.Password)]
-        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
-        [Display(Name = "Nhớ thông tin đăng nhập?")]
+        [Display(Name = "Lưu thông tin")]
         public bool RememberMe { get; set; }
     }
 }
