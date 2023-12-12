@@ -22,20 +22,23 @@
 </head>
 
 <body>
-    <header class="headerr">
-        <div class="headerr_1">
-            <img src="~/imgs/logo.png" alt="" style="border-radius: 50%; width: 50px; hight 50px">
-            <a asp-area="" asp-controller="Home" asp-action="Index">L&T Hotel</a>
+    <header class="header">
+        <div class="header_1">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">
+                <img src="~/imgs/logo.png" alt="" style="border-radius: 50%; width: 50px; hight 50px; margin-right:16px;">
+                <h1 class="">L&T Hotel</h1>
+            </a>
         </div>
-        <div class="headerr_2">
+        <div class="header_2">
             <partial name="_LoginPartial" />
         </div>
     </header>
-    <div style="min-height: calc(100vh - 78px); margin-top:78px;">
+    <div style="height: 108px; width:100vw;"></div>
+    <div style="min-height: calc(100vh - 108px)">
         @RenderBody()
     </div>
 
-     <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted">
         <div class="container" style="display: flex; color: black; justify-content: space-between">
             <div>
                 <h3 style="margin-bottom: 0px">Address</h3>
@@ -80,6 +83,19 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/popup.js"></script>
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add('right-panel-active');
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove('right-panel-active');
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

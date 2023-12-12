@@ -62,8 +62,8 @@ namespace HotelManagement.Areas.Identity.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                 
-                var result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);                
+
+                var result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);
                 // Tìm UserName theo Email, đăng nhập lại
                 if ((!result.Succeeded) && HotelManagementUtilities.IsValidEmail(model.UserNameOrEmail))
                 {
@@ -72,7 +72,7 @@ namespace HotelManagement.Areas.Identity.Controllers
                     {
                         result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: true);
                     }
-                } 
+                }
 
                 if (result.Succeeded)
                 {
@@ -81,9 +81,9 @@ namespace HotelManagement.Areas.Identity.Controllers
                 }
                 if (result.RequiresTwoFactor)
                 {
-                   return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 }
-                
+
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning(2, "Tài khoản bị khóa");
@@ -105,7 +105,7 @@ namespace HotelManagement.Areas.Identity.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User đăng xuất");
-            return RedirectToAction("Index", "Home", new {area = ""});
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
         //
         // GET: /Account/Register
@@ -128,7 +128,7 @@ namespace HotelManagement.Areas.Identity.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.UserName, Email = model.Email };
+                var user = new User { UserName = model.UserName, Email = model.Email, FullName = "", Address = "" };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -142,13 +142,16 @@ namespace HotelManagement.Areas.Identity.Controllers
                     // https://localhost:5001/confirm-email?userId=fdsfds&code=xyz&returnUrl=
                     var callbackUrl = Url.ActionLink(
                         action: nameof(ConfirmEmail),
-                        values: 
-                            new { area = "Identity", 
-                                  userId = user.Id, 
-                                  code = code},
+                        values:
+                            new
+                            {
+                                area = "Identity",
+                                userId = user.Id,
+                                code = code
+                            },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(model.Email, 
+                    await _emailSender.SendEmailAsync(model.Email,
                         "Xác nhận địa chỉ email",
                         @$"Bạn đã đăng ký tài khoản trên RazorWeb, 
                            hãy <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>bấm vào đây</a> 
@@ -172,14 +175,14 @@ namespace HotelManagement.Areas.Identity.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        
+
         // GET: /Account/ConfirmEmail
         [HttpGet]
         [AllowAnonymous]
         public IActionResult RegisterConfirmation()
         {
             return View();
-        }       
+        }
 
         // GET: /Account/ConfirmEmail
         [HttpGet]
@@ -256,7 +259,7 @@ namespace HotelManagement.Areas.Identity.Controllers
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
             }
-        } 
+        }
 
         //
         // POST: /Account/ExternalLoginConfirmation
@@ -279,7 +282,7 @@ namespace HotelManagement.Areas.Identity.Controllers
                 var registeredUser = await _userManager.FindByEmailAsync(model.Email);
                 string externalEmail = null;
                 User externalEmailUser = null;
-                
+
                 // Claim ~ Dac tinh mo ta mot doi tuong 
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
@@ -304,7 +307,7 @@ namespace HotelManagement.Areas.Identity.Controllers
                             return LocalRedirect(returnUrl);
                         }
                     }
-                    else 
+                    else
                     {
                         // registeredUser = externalEmailUser (externalEmail != Input.Email)
                         /*
@@ -320,13 +323,14 @@ namespace HotelManagement.Areas.Identity.Controllers
                 if ((externalEmailUser != null) && (registeredUser == null))
                 {
                     ModelState.AddModelError(string.Empty, "Không hỗ trợ tạo tài khoản mới - có email khác email từ dịch vụ ngoài");
-                    return View();                    
+                    return View();
                 }
 
-                if((externalEmailUser == null) && (externalEmail == model.Email)) 
+                if ((externalEmailUser == null) && (externalEmail == model.Email))
                 {
                     // Chua co Account -> Tao Account, lien ket, dang nhap
-                    var newUser = new User() {
+                    var newUser = new User()
+                    {
                         UserName = externalEmail,
                         Email = externalEmail
                     };
@@ -346,9 +350,9 @@ namespace HotelManagement.Areas.Identity.Controllers
                     else
                     {
                         ModelState.AddModelError("Không tạo được tài khoản mới");
-                        return View();   
+                        return View();
                     }
-                }           
+                }
 
 
                 var user = new User { UserName = model.Email, Email = model.Email };
@@ -412,7 +416,7 @@ namespace HotelManagement.Areas.Identity.Controllers
                     $"Hãy bấm <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>vào đây</a> để đặt lại mật khẩu.");
 
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
-   
+
 
 
             }
@@ -471,7 +475,7 @@ namespace HotelManagement.Areas.Identity.Controllers
         public IActionResult ResetPasswordConfirmation()
         {
             return View();
-        }        
+        }
 
         //
         // GET: /Account/SendCode
@@ -674,6 +678,6 @@ namespace HotelManagement.Areas.Identity.Controllers
 
 
 
-    
-  }
+
+    }
 }
