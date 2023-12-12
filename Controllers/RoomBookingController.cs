@@ -51,7 +51,7 @@ public class RoomBookingController : Controller
                 room.State == 1 &&
                 !_context.RoomBooking.Any(rb =>
                     rb.RoomID == room.RoomID &&
-                    rb.Status == 1 &&
+                    rb.Status == 5 &&
                     startTimeInt < rb.TimeEnd && endTimeInt > rb.TimeStart))
             .ToList();
 
