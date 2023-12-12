@@ -3,6 +3,7 @@ using System;
 using HotelManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:Migrations/20231212083101_Create_Database.Designer.cs
+    [Migration("20231212083101_Create_Database")]
+    partial class Create_Database
+========
+    [Migration("20231212122824_CreateDatabase")]
+    partial class CreateDatabase
+>>>>>>>> d0597e2f83f471547f35e2eb3c51226df5c753d3:Migrations/20231212122824_CreateDatabase.Designer.cs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -108,6 +116,8 @@ namespace HotelManagement.Migrations
                 });
 
             modelBuilder.Entity("HotelManagement.Models.RoomBooking", b =>
+<<<<<<<< HEAD:Migrations/20231212083101_Create_Database.Designer.cs
+========
                 {
                     b.Property<int>("RoomBookingID")
                         .ValueGeneratedOnAdd()
@@ -121,6 +131,43 @@ namespace HotelManagement.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
+
+                    b.Property<int>("TimeEnd")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TimeStart")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RoomBookingID");
+
+                    b.ToTable("room_booking_tbl");
+                });
+
+            modelBuilder.Entity("HotelManagement.Models.RoomType", b =>
+>>>>>>>> d0597e2f83f471547f35e2eb3c51226df5c753d3:Migrations/20231212122824_CreateDatabase.Designer.cs
+                {
+                    b.Property<int>("RoomBookingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoomID")
+                        .HasColumnType("INTEGER");
+
+<<<<<<<< HEAD:Migrations/20231212083101_Create_Database.Designer.cs
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+========
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+>>>>>>>> d0597e2f83f471547f35e2eb3c51226df5c753d3:Migrations/20231212122824_CreateDatabase.Designer.cs
 
                     b.Property<int>("TimeEnd")
                         .HasColumnType("INTEGER");
