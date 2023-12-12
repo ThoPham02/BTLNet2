@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231211164257_CreateIdentitySchema")]
+    [Migration("20231212122645_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         /// <inheritdoc />
