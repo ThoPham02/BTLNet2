@@ -30,4 +30,5 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public DbSet<RoomBooking> RoomBooking{get; set;}
     public DbSet<Room> Room{get; set;}
     public DbSet<RoomType> RoomType{get; set;}
+    public DbSet<RoomBooking> RoomBooking{get; set;}
 }

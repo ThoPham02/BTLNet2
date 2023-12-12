@@ -10,13 +10,10 @@ namespace HotelManagement.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    // private readonly ApplicationDbContext _context;
-
-    // Chỉ giữ lại constructor này
-    public HomeController(ILogger<HomeController> logger/*, ApplicationDbContext context*/)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        // _context = context;
+
     }
     public IActionResult Index()
     {
@@ -28,10 +25,12 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-
-    // GET: Room
-    public async Task<IActionResult> ToBook()
+    public IActionResult ToBook()
     {
-        return View(/*await _context.Room.ToListAsync()*/);
+        // Lấy danh sách phòng từ ViewBag
+        var availableRooms = ViewBag.AvailableRooms as List<Room>;
+
+        // Truyền danh sách phòng vào View
+        return View(availableRooms);
     }
 }

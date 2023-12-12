@@ -66,15 +66,12 @@
 
 .search_date {
     display: flex;
-    border-left: seashell solid 1px;
-    border-right: seashell solid 1px;
-    justify-content: space-around;
-    width: 300px;
+    border-right: seashell solid 1px;  
     padding: 0 10px 0 10px;
 }
 
-.search_date>p {
-    margin-top: 40px
+.search_date input {
+    border: none;
 }
 
 .search_number {
