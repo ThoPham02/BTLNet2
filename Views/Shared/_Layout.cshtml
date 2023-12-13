@@ -25,7 +25,8 @@
     <header class="header">
         <div class="header_1">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">
-                <img src="~/imgs/logo.png" alt="" style="border-radius: 50%; width: 50px; hight 50px; margin-right:16px;">
+                <img src="~/imgs/logo.png" alt=""
+                    style="border-radius: 50%; width: 50px; hight 50px; margin-right:16px;">
                 <h1 class="">L&T Hotel</h1>
             </a>
         </div>
@@ -33,9 +34,12 @@
             <partial name="_LoginPartial" />
         </div>
     </header>
-    <div style="height: 108px; width:100vw;"></div>
-    <div style="min-height: calc(100vh - 108px)">
-        @RenderBody()
+    <div>
+        <div style="height: 108px; width:100vw;"></div>
+        <div style="min-height: calc(100vh - 108px)">
+            @RenderBody()
+        </div>
+
     </div>
 
     <footer class="border-top footer text-muted">

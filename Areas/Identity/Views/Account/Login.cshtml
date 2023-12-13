@@ -14,12 +14,12 @@
             <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
                 <h1>Tạo Tài Khoản</h1>
                 <span>Sử dụng email của bạn để đăng ký tài khoản mới</span>
-                <input asp-for="UserName" placeholder="Username"/>
-                <span asp-validation-for="UserName" class="text-danger"></span>
-                <input asp-for="UserNameOrEmail" placeholder="Email"/>
-                <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
-                <input type="password" asp-for="Password" placeholder="Mật khẩu"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <input asp-for="RegisterUserName" placeholder="Username"/>
+                <span asp-validation-for="RegisterUserName" class="text-danger"></span>
+                <input asp-for="RegisterUserNameOrEmail" placeholder="Email"/>
+                <span asp-validation-for="RegisterUserNameOrEmail" class="text-danger"></span>
+                <input type="password" asp-for="RegisterPassword" placeholder="Mật khẩu"/>
+                <span asp-validation-for="RegisterPassword" class="text-danger"></span>
                 <button type="submit">Đăng ký</button>
             </form>
         </div>
