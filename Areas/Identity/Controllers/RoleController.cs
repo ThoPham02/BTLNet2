@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 namespace HotelManagement.Areas.Identity.Controllers
 {
 
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Identity")]
     [Route("/Role/[action]")]
     public class RoleController : Controller
