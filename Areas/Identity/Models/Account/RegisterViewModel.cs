@@ -23,12 +23,6 @@ namespace HotelManagement.Areas.Identity.Models.AccountViewModels
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Lặp lại mật khẩu")]
-        [Compare("Password", ErrorMessage = "Mật khẩu lặp lại không chính xác.")]
-        public string ConfirmPassword { get; set; }
-
-
         [DataType(DataType.Text)]
         [Display(Name = "Tên tài khoản")]
         [Required(ErrorMessage = "Phải nhập {0}")]
