@@ -28,7 +28,7 @@ namespace HotelManagement.Areas.Identity.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<AccountController> _logger;
-        public string StatusMessage { get; set;}
+        public string StatusMessage { get; set; }
 
         public AccountController(
             UserManager<User> userManager,
@@ -80,7 +80,9 @@ namespace HotelManagement.Areas.Identity.Controllers
                 {
                     ModelState.AddModelError("Không đăng nhập được.");
                 }
-            } else {
+            }
+            else
+            {
                 ModelState.AddModelError("Không đăng nhập được.");
             }
             return View(model);
@@ -112,39 +114,32 @@ namespace HotelManagement.Areas.Identity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
-            // returnUrl ??= Url.Content("~/");
-            // ViewData["ReturnUrl"] = returnUrl;
+            returnUrl ??= Url.Content("~/");
+            ViewData["ReturnUrl"] = returnUrl;
 
-            // if (ModelState.IsValid)
-            // {
-            //     var user = await _userManager.FindByEmailAsync(model.Email);
-            //     if (user == null)
-            //     {
-            //         user = new User()
-            //         {
-            //             FullName = "",
-            //             Address = "",
-            //             UserName = model.UserName,
-            //             Email = model.Email,
-            //             EmailConfirmed = true,
-            //         };
+            _logger.LogInformation(returnUrl);
 
-            //         await _userManager.CreateAsync(user, model.Password);
-            //         await _userManager.AddToRoleAsync(user, Constants.ROLE_USER);
-            //         await _signInManager.SignInAsync(user, false);
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    user = new User()
+                    {
+                        FullName = "",
+                        Address = "",
+                        UserName = model.UserName,
+                        Email = model.Email,
+                        EmailConfirmed = true,
+                    };
 
-            //         return RedirectToAction("Index");
+                    await _userManager.CreateAsync(user, model.Password);
+                    await _userManager.AddToRoleAsync(user, Constants.ROLE_USER);
+                    await _signInManager.SignInAsync(user, false);
 
-            //     }
-            //     else
-            //     {
-
-            //     }
-
-            //     StatusMessage = "Tạo Admin Account thành công!!";
-            //     return RedirectToAction("Index");
-            // }
-
+                    return LocalRedirect(returnUrl);
+                }
+            }
             return View(model);
         }
 
