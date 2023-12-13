@@ -20,6 +20,21 @@ namespace HotelManagement.Areas.Identity.Models.AccountViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Phải nhập {0}")]
+        [Display(Name = "địa chỉ email")]
+        public string RegisterUserName { get; set; }
+
+
+        [Required(ErrorMessage = "Phải nhập {0}")]
+        [Display(Name = "địa chỉ email")]
+        public string RegisterUserNameOrEmail { get; set; }
+
+
+        [Required(ErrorMessage = "Mật khẩu không được để trống")]
+        [DataType(DataType.Password)]
+        public string RegisterPassword { get; set; }
+
+
         [Display(Name = "Lưu thông tin")]
         public bool RememberMe { get; set; }
     }
