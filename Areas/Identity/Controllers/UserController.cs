@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HotelManagement.Areas.Identity.Models.AccountViewModels;
-using HotelManagement.Areas.Identity.Models.ManageViewModels;
+using HotelManagement.Areas.Identity.Models.IndexViewModel;
 using HotelManagement.Areas.Identity.Models.RoleViewModels;
 using HotelManagement.Areas.Identity.Models.UserViewModels;
 using HotelManagement.Data;

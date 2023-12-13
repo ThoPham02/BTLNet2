@@ -45,12 +45,9 @@ button.accept-policy {
 }
 
 .center-child {
-  margin-top: 78px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh-78px);
-  width: 100vw;
 }
 
 .title {

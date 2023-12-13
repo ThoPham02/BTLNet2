@@ -9,7 +9,7 @@
     <div class="container" id="container">
         <div class="form-container sign-in-container">
             <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"
-                method="post" class="form-horizontal" role="form">
+                method="post" class="form-horizontal form" role="form">
                 <h1>Tạo Tài Khoản</h1>
                 <span>Sử dụng email của bạn để đăng ký tài khoản mới</span>
                 <input asp-for="UserName" placeholder="Username" />

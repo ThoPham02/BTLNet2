@@ -60,6 +60,12 @@ builder.Services.Configure<SecurityStampValidatorOptions>(options =>
     options.ValidationInterval = TimeSpan.FromSeconds(5); 
 });
 
+builder.Services.AddAuthorization(option => {
+    option.AddPolicy("Admin", builder => {
+        builder.RequireAuthenticatedUser();
+        builder.RequireRole(Constants.ROLE_ADMIN);
+    });
+});
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddMvc();
 var app = builder.Build();
