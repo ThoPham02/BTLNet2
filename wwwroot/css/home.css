@@ -83,8 +83,8 @@
 }
 
 .box {
-    width: 500px;
-    height: 480px;
+    width: 420px;
+    height: 600px;
     border-radius: 25px;
     background-color: white;
     padding: 12px 0;
@@ -151,7 +151,7 @@ h1 {
     border-color: #FFFFFF;
   }
   
-  form {
+  .form {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
