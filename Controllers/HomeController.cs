@@ -28,29 +28,30 @@ public class HomeController : Controller
     }
     public IActionResult ToBook()
     {
-        // Lấy danh sách phòng từ ViewBag
-        var availableRooms = ViewBag.AvailableRooms as List<Room>;
-
-        // Truyền danh sách phòng vào View
-        return View(availableRooms);
+        return View();
     }
+    [HttpPost]
     public IActionResult DisplayAvailableRooms(DateTime startTime, DateTime endTime)
     {
-        var startTimeInt = startTime.Ticks; // Chuyển đổi thành số nguyên
-        var endTimeInt = endTime.Ticks; // Chuyển đổi thành số nguyên
+        var startTimeInt = startTime.Ticks;
+        var endTimeInt = endTime.Ticks;
         var availableRooms = _context.Room
             .Where(room =>
-                room.State == 1 &&
+                room.State == Constants.TRANG_THAI_PHONG_TRONG &&
                 !_context.RoomBooking.Any(rb =>
                     rb.RoomID == room.RoomID &&
-                    rb.Status == 5 &&
+                    (rb.Status == Constants.TRANG_THAI_DAT_PHONG_CHO_DUYET ||
+                    rb.Status == Constants.TRANG_THAI_DAT_PHONG_DA_DUYET ||
+                    rb.Status == Constants.TRANG_THAI_DAT_PHONG_DANG_SU_DUNG) &&
                     startTimeInt < rb.TimeEnd && endTimeInt > rb.TimeStart))
-            .ToList();
+             .Select(room => new
+             {
+                 Room = room,
+                 RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
+             })
+        .ToList<object>();
 
-       
-
-        // Chuyển hướng đến action "ToBook" trong controller "Home"
-        return View(availableRooms);
+        return View("ToBook", availableRooms);
     }
 
 }
