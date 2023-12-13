@@ -87,7 +87,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/popup.js"></script>
-    <script>
+    @* <script>
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
         const container = document.getElementById('container');
@@ -99,7 +99,7 @@
         signInButton.addEventListener('click', () => {
             container.classList.remove('right-panel-active');
         });
-    </script>
+    </script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
