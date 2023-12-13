@@ -2,18 +2,19 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using HotelManagement.Data;
 
-using HotelManagement.Models;
 
 namespace HotelManagement.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    public HomeController(ILogger<HomeController> logger)
+    private readonly ApplicationDbContext _context;
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
         _logger = logger;
-
+        _context = context;
     }
     public IActionResult Index()
     {
@@ -33,4 +34,23 @@ public class HomeController : Controller
         // Truyền danh sách phòng vào View
         return View(availableRooms);
     }
+    public IActionResult DisplayAvailableRooms(DateTime startTime, DateTime endTime)
+    {
+        var startTimeInt = startTime.Ticks; // Chuyển đổi thành số nguyên
+        var endTimeInt = endTime.Ticks; // Chuyển đổi thành số nguyên
+        var availableRooms = _context.Room
+            .Where(room =>
+                room.State == 1 &&
+                !_context.RoomBooking.Any(rb =>
+                    rb.RoomID == room.RoomID &&
+                    rb.Status == 5 &&
+                    startTimeInt < rb.TimeEnd && endTimeInt > rb.TimeStart))
+            .ToList();
+
+       
+
+        // Chuyển hướng đến action "ToBook" trong controller "Home"
+        return View(availableRooms);
+    }
+
 }
