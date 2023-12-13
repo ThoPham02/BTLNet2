@@ -26,7 +26,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
     }
     public DbSet<BookingDetail> BookingDetail{get; set;}
     public DbSet<Booking> Booking{get; set;}
-    public DbSet<Customers> CustomersModels{get; set;}
+    public DbSet<Customers> Customers{get; set;}
     public DbSet<RoomBooking> RoomBooking{get; set;}
     public DbSet<Room> Room{get; set;}
     public DbSet<RoomType> RoomType{get; set;}
