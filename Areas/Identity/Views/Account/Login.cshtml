@@ -9,27 +9,15 @@
 }
 
 <div class="bg-image">
-<div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                <h1>Tạo Tài Khoản</h1>
-                <span>Sử dụng email của bạn để đăng ký tài khoản mới</span>
-                <input asp-for="UserName" placeholder="Username"/>
-                <span asp-validation-for="UserName" class="text-danger"></span>
-                <input asp-for="UserNameOrEmail" placeholder="Email"/>
-                <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
-                <input type="password" asp-for="Password" placeholder="Mật khẩu"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
-                <button type="submit">Đăng ký</button>
-            </form>
-        </div>
+    <div class="container" id="container">
         <div class="form-container sign-in-container">
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post"
+                class="form-horizontal" role="form">
                 <h1>Đăng nhập</h1>
                 <span>Sử dụng tài khoản email của bạn</span>
-                <input asp-for="UserNameOrEmail" placeholder="Email"/>
+                <input asp-for="UserNameOrEmail" placeholder="Email" />
                 <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
-                <input type="password" asp-for="Password" placeholder="Mật khẩu"/>
+                <input type="password" asp-for="Password" placeholder="Mật khẩu" />
                 <span asp-validation-for="Password" class="text-danger"></span>
                 <a asp-action="ForgotPassword">Quên mật khẩu?</a>
                 <button type="submit">Đăng nhập</button>
@@ -37,17 +25,11 @@
         </div>
         <div class="overlay-container">
             <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1 style="margin-bottom: 70px;">Chào Mừng <br>Trở Lại</h1>
-                    <p>Xin vui lòng đăng nhập để giữ liên kết với chúng tôi</p>
-                    <button class="ghost" id="signIn">Đăng nhập</button>
-                </div>
                 <div class="overlay-panel overlay-right">
                     <h1 style="margin-bottom: 50px;">Chào Mừng Quý Khách</h1>
                     <p>Đăng ký trở thành thành viên của khách sạn để được hưởng những ưu đãi hấp dẫn</p>
-                    <button class="ghost" id="signUp">
-                        Đăng ký
-                    </button>
+                    <a class="nav-link fw-bold btn-light" style="padding: 12px 24px; border-radius: 12px;"
+                        asp-area="Identity" asp-controller="Account" asp-action="Register">Đăng ký</a>
                 </div>
             </div>
         </div>
@@ -56,5 +38,7 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-} *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
