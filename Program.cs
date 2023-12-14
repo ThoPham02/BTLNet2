@@ -15,9 +15,6 @@ builder.Services.AddIdentity<User, IdentityRole> ()
     .AddEntityFrameworkStores<ApplicationDbContext> ()
     .AddDefaultTokenProviders ();
 
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
-
-builder.Services.AddSingleton<IEmailSender, SendMailService>();
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
 
 builder.Services.Configure<IdentityOptions> (options => {
