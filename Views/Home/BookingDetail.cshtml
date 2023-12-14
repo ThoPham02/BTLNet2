@@ -1,0 +1,37 @@
+@Html.Partial("_BookingSteps")
+@Html.Partial("_SectionTitle", "Nhập thông tin chi tiết")
+@model dynamic
+<div class="booking container">
+    <div class="booking-infor">
+        <div class="bki">
+            <div class="bki-padding">
+                <div class="bki_2">
+                    <p style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: bold">Thông
+                        tin
+                        chi tiết</p>
+                    <label for="">Họ tên đầy đủ: </label>
+                    <input type="text">
+                    <br>
+                    <label for="">Số điện thoại: </label>
+                    <input type="text">
+                    <br>
+                    <label for="">Email: </label>
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="bki-price">
+            <div class="bki-padding">
+                <h5 style="text-align: center; font-size: 16px;">Tổng chi phí</h5>
+                <p>Phí phòng</p>
+                <p>Tên phòng: @Model.Room.Name</p>
+            </div>
+        </div>
+    </div>
+    <div class="book_button">
+        <button class="btn_s">
+            Gửi thông tin
+        </button>
+    </div>
+</div>
