@@ -13,5 +13,4 @@
 
         public const string ROLE_ADMIN = "admin";
         public const string ROLE_USER = "user";
-
     }

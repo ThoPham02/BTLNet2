@@ -1,31 +1,7 @@
 @using HotelManagement.Models
 @model List<dynamic>
-<div class="step container">
-    <ul>
-        <li>
-            <svg color="#ad9e87" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="bi bi-1-circle" viewBox="0 0 16 16">
-                <path
-                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z" />
-            </svg>
-            <a href="">Đặt phòng</a>
-        </li>
-        <b></b>
-        <li>
-            <svg color="#ad9e87" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="bi bi-2-circle" viewBox="0 0 16 16">
-                <path
-                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z" />
-            </svg>
-            <a href="">Nhập thông tin chi tiết</a>
-        </li>
-    </ul>
-</div>
-<h4 class="section-title section-title-center container" style="margin-top:70px">
-    <b style="background-color: #d1c7ba;"></b>
-    <span class="section-title-main" style="color: #df932a; padding: 0 28px 0 28px;">Đặt phòng</span>
-    <b style="background-color: #d1c7ba;"></b>
-</h4>
+@Html.Partial("_BookingSteps")
+@Html.Partial("_SectionTitle", "Đặt phòng")
 @using (Html.BeginForm("DisplayAvailableRooms", "Home", FormMethod.Post))
 {
     <div class="container form-search">
@@ -47,228 +23,91 @@
     </div>
 }
 
-@if (Model != null  && Model.Any())
-{
-    @foreach (var item in Model)
-    {
-        var room = item.Room;
-        var roomType = item.RoomType;
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    @roomType.Description
-                </p>
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Tên phòng:
-                    </span>
-                    @room.Name
-                </p>
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Loại phòng:
-                    </span>
-                    @roomType.TypeName
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                @roomType.Price
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-    }
-}
-else
-{
-    <p>No data available.</p>
-}
+
 <div class="container">
     <h5 class="section-title section-title-center container" style="margin-top:62px; margin-bottom: 17px;">
         <b style="background-color: #d1c7ba; flex: 0.3; margin-left: 160px;"></b>
-        <span class="section-title-main" style="color: #e1bb87; padding: 0 28px 0 28px;">Phòng đôi</span>
+        <button style="background-color: #9fc3cf; border: none">
+            <span class="section-title-main" style="color: white; padding: 0 28px 0 28px; font-size: 18px;">Phòng
+                đôi</span>
+        </button>
         <b style="background-color: #d1c7ba; flex: 0.3; margin-right: 160px;"></b>
     </h5>
     <div class="room">
-
-
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-
-
-
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-    </div>
-
-    <h5 class="section-title section-title-center container" style="margin-top:62px; margin-bottom: 17px;">
-        <b style="background-color: #d1c7ba; flex: 0.3; margin-left: 160px;"></b>
-        <span class="section-title-main" style="color: #e1bb87; padding: 0 28px 0 28px;">Phòng đơn</span>
-        <b style="background-color: #d1c7ba; flex: 0.3; margin-right: 160px;"></b>
-    </h5>
-    <div class="room">
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-        <div class="room-cash">
-            <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-            <div class="room_des">
-                <p style="margin: 10px 5px 5px 5px">
-                    <span style="color: rgb(185, 138, 138); text-decoration: underline; font-size: 19px">Mô tả: </span>
-                    Căn phòng 30m2 với nội thất màu vàng kim sang trọng, gồm 1 giường to và 1 giường nhỏ phù hợp với gia
-                    đình hoặc cặp đôi
-                </p>
-            </div>
-            <p style="color: rgb(206, 169, 169); text-decoration: underline; font-size: 19px;">
-                Giá: 3,000,000 vnđ
-            </p>
-            <button class="room_btn">Chọn phòng</button>
-        </div>
-    </div>
-    <h4 class="section-title section-title-center container" style="margin-top:62px">
-        <b style="background-color: #d1c7ba;"></b>
-        <span class="section-title-main" style="color: #df932a; padding: 0 28px 0 28px;">Nhập thông tin đặt phòng</span>
-        <b style="background-color: #d1c7ba;"></b>
-    </h4>
-    <div class="booking">
-        <div class="booking-infor">
-            <div class="bki">
-                <div class="bki-padding">
-                    <div class="bki_1">
-                        <p>Số lượng phòng: 2</p>
-                        <p>Số lượng người: 1 </p>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model.Where(x => x.RoomType.TypeName == "Phòng Đôi"))
+            {
+                var room = item.Room;
+                var roomType = item.RoomType;
+                <div class="room-cash">
+                    <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
+                    <div class="room_des">
+                        <p style="font-weight: 0;">
+                            <span class ="text_1">Mô tả: </span>
+                            @roomType.Description
+                        </p>
+                        <p>
+                            <span class ="text_1">Tên phòng:
+                            </span>
+                            @room.Name
+                        </p>
+            
                     </div>
-                    <div class="bki_2">
-                        <p style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: bold">Thông tin
-                            chi tiết</p>
-                        <label for="">Họ tên đầy đủ: </label>
-                        <input type="text">
-                        <br>
-                        <label for="">Số điện thoại: </label>
-                        <input type="text">
-                        <br>
-                        <label for="">Email: </label>
-                        <input type="text">
-                    </div>
+                    <p style="color: rgb(199, 68, 68); text-decoration: underline; font-size: 19px; font-weight: 600"> Giá:
+                        @roomType.Price
+                    </p>
+                    @* <a asp-area="" asp-controller="Home" asp-action="BookingDetail"> *@
+                    <a href="@Url.Action("BookingDetail", "Home", new { roomId = room.RoomID })">
+                        <button class="room_btn">Chọn phòng</button>
+                    </a>
                 </div>
-            </div>
+            }
+        }
+        else
+        {
+            <p>No data.</p>
+        }
 
-            <div class="bki-price">
-                <div class="bki-padding">
-                    <h5 style="text-align: center; font-size: 16px;">Tổng chi phí</h5>
-                    <p>Phí phòng</p>
-                </div>
-            </div>
-        </div>
-        <div class="book_button">
-            <button>
-                Gửi thông tin
+        <h5 class="section-title section-title-center container" style="margin-top:62px; margin-bottom: 17px;">
+            <b style="background-color: #d1c7ba; flex: 0.3; margin-left: 160px;"></b>
+            <button style="background-color: #9fc3cf; border: none">
+                <span class="section-title-main" style="color: white; padding: 0 28px 0 28px; font-size: 18px;">Phòng
+                    đơn</span>
             </button>
-        </div>
+            <b style="background-color: #d1c7ba; flex: 0.3; margin-right: 160px;"></b>
+        </h5>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model.Where(x => x.RoomType.TypeName == "Phòng Đơn"))
+            {
+                var room = item.Room;
+                var roomType = item.RoomType;
+                <div class="room-cash">
+                    <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
+                    <div class="room_des">
+                        <p>
+                            <span class ="text_1">Mô tả: </span>
+                            @roomType.Description
+                        </p>
+                        <p>
+                            <span class ="text_1">Tên phòng:</span>
+                            @room.Name
+                        </p>
+                        
+                    </div>
+                    <p style="color: rgb(199, 68, 68); text-decoration: underline; font-size: 19px; font-weight: 600">Giá:
+                        @roomType.Price
+                    </p>
+                    <a asp-area="" asp-controller="Home" asp-action="BookingDetail">
+                        <button class="room_btn">Chọn phòng</button>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No data.</p>
+        }
     </div>
 </div>
-}

@@ -37,13 +37,13 @@ public class HomeController : Controller
         var endTimeInt = endTime.Ticks;
         var availableRooms = _context.Room
             .Where(room =>
-                room.State == Constants.TRANG_THAI_PHONG_TRONG &&
+                (room.State == Constants.TRANG_THAI_PHONG_TRONG &&
                 !_context.RoomBooking.Any(rb =>
                     rb.RoomID == room.RoomID &&
                     (rb.Status == Constants.TRANG_THAI_DAT_PHONG_CHO_DUYET ||
                     rb.Status == Constants.TRANG_THAI_DAT_PHONG_DA_DUYET ||
                     rb.Status == Constants.TRANG_THAI_DAT_PHONG_DANG_SU_DUNG) &&
-                    startTimeInt < rb.TimeEnd && endTimeInt > rb.TimeStart))
+                    startTimeInt < rb.TimeEnd && endTimeInt > rb.TimeStart)))
              .Select(room => new
              {
                  Room = room,
@@ -53,5 +53,24 @@ public class HomeController : Controller
 
         return View("ToBook", availableRooms);
     }
+    public IActionResult BookingDetail(int roomId)
+    {
+        // Lấy thông tin chi tiết phòng từ cơ sở dữ liệu
+        var roomDetail = _context.Room
+            .Where(room => room.RoomID == roomId)
+            .Select(room => new
+            {
+                Room = room,
+                RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
+            })
+            .FirstOrDefault();
 
+        if (roomDetail == null)
+        {
+            // Xử lý khi không tìm thấy phòng
+            return RedirectToAction("ToBook");
+        }
+
+        return View(roomDetail);
+    }
 }
