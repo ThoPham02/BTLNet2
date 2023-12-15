@@ -2,24 +2,21 @@
 @model List<dynamic>
 @Html.Partial("_BookingSteps")
 @Html.Partial("_SectionTitle", "Đặt phòng")
-@using (Html.BeginForm("DisplayAvailableRooms", "Home", FormMethod.Post))
+@using (Html.BeginForm("DisplayAvailableRooms", "Home", FormMethod.Get))
 {
     <div class="container form-search">
         <div class="search_date">
             <div style="margin-right: 60px">
                 <label>Thời gian nhận phòng:</label>
-                <input type="date" />
+                <input type="date" name="startTime" />
             </div>
             <div style="margin-right: 20px">
                 <label>Thời gian trả phòng:</label>
-                <input type="date" />
+                <input type="date" name="endTime" />
             </div>
         </div>
-
-        <a asp-controller="Home" asp-action="DisplayAvailableRooms">
-            <button class="btn_s">Tìm kiếm</button>
-        </a>
-
+        
+        <button type="submit" class="btn_s">Tìm kiếm</button>
     </div>
 }
 
@@ -44,21 +41,21 @@
                     <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
                     <div class="room_des">
                         <p style="font-weight: 0;">
-                            <span class ="text_1">Mô tả: </span>
+                            <span class="text_1">Mô tả: </span>
                             @roomType.Description
                         </p>
                         <p>
-                            <span class ="text_1">Tên phòng:
+                            <span class="text_1">Tên phòng:
                             </span>
                             @room.Name
                         </p>
-            
+
                     </div>
                     <p style="color: rgb(199, 68, 68); text-decoration: underline; font-size: 19px; font-weight: 600"> Giá:
                         @roomType.Price
                     </p>
-                    @* <a asp-area="" asp-controller="Home" asp-action="BookingDetail"> *@
-                    <a href="@Url.Action("BookingDetail", "Home", new { roomId = room.RoomID })">
+                    <a asp-area="" asp-controller="Home" asp-action="BookingDetail"> 
+                      
                         <button class="room_btn">Chọn phòng</button>
                     </a>
                 </div>
@@ -87,14 +84,14 @@
                     <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
                     <div class="room_des">
                         <p>
-                            <span class ="text_1">Mô tả: </span>
+                            <span class="text_1">Mô tả: </span>
                             @roomType.Description
                         </p>
                         <p>
-                            <span class ="text_1">Tên phòng:</span>
+                            <span class="text_1">Tên phòng:</span>
                             @room.Name
                         </p>
-                        
+
                     </div>
                     <p style="color: rgb(199, 68, 68); text-decoration: underline; font-size: 19px; font-weight: 600">Giá:
                         @roomType.Price

@@ -26,15 +26,13 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    public IActionResult ToBook()
-    {
-        return View();
-    }
-    [HttpPost]
+    
+    [HttpGet]
     public IActionResult DisplayAvailableRooms(DateTime startTime, DateTime endTime)
     {
         var startTimeInt = startTime.Ticks;
         var endTimeInt = endTime.Ticks;
+        Console.WriteLine($"StartTime: {startTime}, EndTime: {endTime}");
         var availableRooms = _context.Room
             .Where(room =>
                 (room.State == Constants.TRANG_THAI_PHONG_TRONG &&
@@ -50,9 +48,14 @@ public class HomeController : Controller
                  RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
              })
         .ToList<object>();
-
-        return View("ToBook", availableRooms);
+        
+        return View(availableRooms);
     }
+    public IActionResult Booking()
+    {
+        return View();
+    }
+
     public IActionResult BookingDetail(int roomId)
     {
         // Lấy thông tin chi tiết phòng từ cơ sở dữ liệu
@@ -68,7 +71,7 @@ public class HomeController : Controller
         if (roomDetail == null)
         {
             // Xử lý khi không tìm thấy phòng
-            return RedirectToAction("ToBook");
+            return View("BookingDetail", null);
         }
 
         return View(roomDetail);

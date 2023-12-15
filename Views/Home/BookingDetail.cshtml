@@ -23,9 +23,18 @@
 
         <div class="bki-price">
             <div class="bki-padding">
+
                 <h5 style="text-align: center; font-size: 16px;">Tổng chi phí</h5>
                 <p>Phí phòng</p>
-                <p>Tên phòng: @Model.Room.Name</p>
+                @if (Model == null)
+                {
+                    <p>Không tìm thấy phòng</p>
+                }
+                else
+                {
+                   <p>Tên phòng: @Model.Room.Name</p>
+                }
+                
             </div>
         </div>
     </div>
