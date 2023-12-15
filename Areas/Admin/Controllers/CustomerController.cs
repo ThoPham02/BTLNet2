@@ -20,23 +20,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace HotelManagement.Areas.Admin.Controllers
-{
+namespace HotelManagement.Areas.Admin.Controllers {
+
     [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
     [Route("/Home/[action]")]
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
+    public class CustomerController : Controller {
+         private readonly ILogger<CustomerController> _logger;
         private readonly ICombinedService _combinedService;
-        public HomeController(
-            ILogger<HomeController> logger)
+        public CustomerController(
+            ILogger<CustomerController> logger)
         {
             _logger = logger;
         }
 
         // GET: /Admin/Index
-        [HttpGet("/admin")]
+        [HttpGet("/admin/customer")]
         public IActionResult Index(string customer, string room, string status)
         {
             // var model = _combinedService.GetData(customer, room, status);

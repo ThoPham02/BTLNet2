@@ -1,10 +1,8 @@
-@model List<HotelManagement.Areas.Admin.Models.RoomBookingViews>
-
 <div class="admin_home">
     <div class="home_header">
         <div class="home_title">
-            <i class="fa fa-home"></i>
-            Quản Lý Check-In
+            <i class="fa-solid fa-user"></i>
+            Quản Lý Khách Hàng
         </div>
         <div class="home_add">
 
@@ -17,18 +15,8 @@
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="@ViewBag.customer">
             </div>
             <div class="form-group col-3">
-                <label for="exampleFormControlInput1">Tên Phòng</label>
+                <label for="exampleFormControlInput1">Số điện thoại</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="@ViewBag.customer">
-            </div>
-            <div class="form-group col-3">
-                <label for="exampleFormControlInput1">Trạng Thái</label>
-                <select class="form-control " id="exampleFormControlSelect1">
-                    <option>Tất cả trạng thái</option>
-                    <option>Chờ check-in</option>
-                    <option>Đang sử dụng</option>
-                    <option>Đã hoàn thành</option>
-                    <option>Đã hủy</option>
-                </select>
             </div>
             <div class="search_btn" type="submit">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -39,12 +27,9 @@
         <thead>
             <tr>
                 <th scope="col-1" class="fw-regular text-center">STT</th>
-                <th scope="col-1" class="fw-regular text-center">Phòng</th>
-                <th scope="col-2" class="fw-regular text-center">Ngày nhận</th>
-                <th scope="col-2" class="fw-regular text-center">Ngày trả</th>
-                <th scope="col-3" class="fw-regular text-center">Khách</th>
-                <th scope="col-1" class="fw-regular text-center">Số điện thoại</th>
-                <th scope="col-1" class="fw-regular text-center">Trạng thái</th>
+                <th scope="col-1" class="w-50 fw-regular text-center">Họ và Tên</th>
+                <th scope="col-2" class="fw-regular text-center">Số điện thoại</th>
+                <th scope="col-2" class="w-25 fw-regular text-center">Email</th>
                 <th scope="col-1" class="fw-regular text-center">Thao tác</th>
             </tr>
         </thead>
