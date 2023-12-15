@@ -54,7 +54,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                                 PhoneNumber = cus.Phone,
                                 BookingStatus = roomBooking.Status,
                             }).ToList();
-
+             _logger.LogInformation(1, "User logged in.");
+             _logger.LogInformation(bookings[0].RoomName);
             return View(bookings);
         }
 
