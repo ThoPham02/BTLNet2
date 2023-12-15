@@ -8,7 +8,7 @@ using HotelManagement.Models;
 namespace HotelManagement.Areas.Admin.Models {
     public class BookingViews {
         [Display(Name = "Mã Đặt Phòng")]
-        public string BookingID { get; set; }
+        public int BookingID { get; set; }
 
         [Display(Name = "Khách Hàng")]
         public string Name { get; set; }
@@ -17,13 +17,13 @@ namespace HotelManagement.Areas.Admin.Models {
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ngày nhận")]
-        public string TimeStart { get; set; }
+        public int TimeStart { get; set; }
 
         [Display(Name = "Ngày Trả")]
-        public string TimeEnd { get; set; }
+        public int TimeEnd { get; set; }
 
-        [Display(Name = "Chi tiết đơn")]
-        public List<BookingDetail> BookingDetails { get; set; }
+        // [Display(Name = "Chi tiết đơn")]
+        // public List<BookingDetail>? BookingDetails { get; set; }
 
         [Display(Name = "Trạng thái")]
         public string BookingStatus { get; set; }

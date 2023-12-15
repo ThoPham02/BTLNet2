@@ -20,26 +20,37 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace HotelManagement.Areas.Admin.Controllers {
+namespace HotelManagement.Areas.Admin.Controllers
+{
 
     [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
     [Route("/Home/[action]")]
-    public class RoomController : Controller {
-         private readonly ILogger<RoomController> _logger;
-        private readonly ICombinedService _combinedService;
+    public class RoomController : Controller
+    {
+        private readonly ILogger<RoomController> _logger;
+        private readonly ApplicationDbContext _context;
         public RoomController(
-            ILogger<RoomController> logger)
+            ILogger<RoomController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        // GET: /Admin/Index
         [HttpGet("/admin/room")]
-        public IActionResult Index(string customer, string room, string status)
+        public IActionResult Index(string room = "", int status = 0)
         {
-            // var model = _combinedService.GetData(customer, room, status);
-            var model = new List<RoomBookingViews>();
+            var model = (from roomCus in _context.Room
+                         join type in _context.RoomType on roomCus.RoomTypeID equals type.RoomTypeID
+                         where roomCus.Name.Contains(room) && (status == 0 || roomCus.State == status)
+                         select new RoomViews
+                         {
+                             RoomID = roomCus.RoomID,
+                             RoomName = roomCus.Name,
+                             RoomType = type.TypeName,
+                             Price = type.Price,
+                             State = roomCus.State
+                         }).ToList();
 
             return View(model);
         }

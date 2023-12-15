@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HotelManagement.Areas.Admin.Models {
     public class CustomerViews {
         [Display(Name = "Mã Khách Hàng")]
-        public string CustomerID { get; set; }
+        public int CustomerID { get; set; }
 
         [Display(Name = "Họ và Tên")]
         public string CustomerName { get; set; }
