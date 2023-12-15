@@ -1,3 +1,5 @@
+@model IEnumerable<HotelManagement.Areas.Admin.Models.RoomViews>
+
 <div class="admin_home">
     <div class="home_header">
         <div class="home_title">
@@ -32,9 +34,10 @@
         <thead>
             <tr>
                 <th scope="col-1" class="fw-regular text-center">STT</th>
-                <th scope="col-1" class="fw-regular text-center">Phòng</th>
-                <th scope="col-1" class="fw-regular text-center">Loại Phòng</th>
-                <th scope="col-1" class="fw-regular text-center">Trạng thái</th>
+                <th scope="col-1" class="fw-regular text-center">@Html.DisplayNameFor(model => model.RoomName)</th>
+                <th scope="col-1" class="fw-regular text-center">@Html.DisplayNameFor(model => model.RoomType)</th>
+                <th scope="col-1" class="fw-regular text-center">@Html.DisplayNameFor(model => model.Price)</th>
+                <th scope="col-1" class="fw-regular text-center">@Html.DisplayNameFor(model => model.State)</th>
                 <th scope="col-1" class="fw-regular text-center">Thao tác</th>
             </tr>
         </thead>
@@ -42,13 +45,11 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row" class="text-center">1</th>
-                    <td class="text-center">P101</td>
-                    <td class="text-center">14/11/2023</td>
-                    <td class="text-center">14/11/2023</td>
-                    <td>Phạm Bá Thọ</td>
-                    <td class="text-center">0336421361</td>
-                    <td class="text-center">Chờ check-in</td>
+                    <th scope="row" class="text-center">@(Model.ToList().IndexOf(item) + 1)</th>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.RoomName)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.RoomType)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.State)</td>
                     <td class="text-center">
                         <i class="fa-solid fa-bars"></i>
                     </td>

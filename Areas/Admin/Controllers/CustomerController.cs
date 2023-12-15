@@ -26,20 +26,27 @@ namespace HotelManagement.Areas.Admin.Controllers {
     [Area("Admin")]
     [Route("/Home/[action]")]
     public class CustomerController : Controller {
-         private readonly ILogger<CustomerController> _logger;
-        private readonly ICombinedService _combinedService;
+        private readonly ILogger<CustomerController> _logger;
+        private readonly ApplicationDbContext _context;
         public CustomerController(
-            ILogger<CustomerController> logger)
+            ILogger<CustomerController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         // GET: /Admin/Index
         [HttpGet("/admin/customer")]
         public IActionResult Index(string customer, string room, string status)
         {
-            // var model = _combinedService.GetData(customer, room, status);
-            var model = new List<RoomBookingViews>();
+            var model = (from cus in _context.Customers
+                         select new CustomerViews
+                         {
+                             CustomerID = cus.CustomerID,
+                             CustomerName = cus.FullName,
+                             PhoneNumber = cus.Phone,
+                             Email = cus.Email
+                         }).ToList();
 
             return View(model);
         }

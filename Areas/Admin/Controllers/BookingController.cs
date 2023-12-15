@@ -20,28 +20,40 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace HotelManagement.Areas.Admin.Controllers {
+namespace HotelManagement.Areas.Admin.Controllers
+{
 
     [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
     [Route("/Home/[action]")]
-    public class BookingController : Controller {
-         private readonly ILogger<BookingController> _logger;
-        private readonly ICombinedService _combinedService;
+    public class BookingController : Controller
+    {
+        private readonly ILogger<BookingController> _logger;
+        private readonly ApplicationDbContext _context;
         public BookingController(
-            ILogger<BookingController> logger)
+            ILogger<BookingController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         // GET: /Admin/Index
         [HttpGet("/admin/booking")]
-        public IActionResult Index(string customer, string room, string status)
+        public IActionResult Index(string customer, string room, int status)
         {
-            // var model = _combinedService.GetData(customer, room, status);
-            var model = new List<RoomBookingViews>();
+            var bookings = (from booking in _context.Booking
+                            join cus in _context.Customers on booking.CustomerID equals cus.CustomerID
+                            // join bookingDetail in _context.BookingDetail on booking.BookingID equals bookingDetail.BookingID into details
+                            select new BookingViews
+                            {
+                                BookingID = booking.BookingID,
+                                Name = cus.FullName,
+                                PhoneNumber = cus.Phone,
+                                TimeStart = booking.TimeStart,
+                                TimeEnd = booking.TimeEnd,
+                            }).ToList();
 
-            return View(model);
+            return View(bookings);
         }
     }
 }

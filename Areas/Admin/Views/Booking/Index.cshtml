@@ -42,13 +42,13 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row" class="text-center">1</th>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.UserID)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.UserID)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.UserID)</td>
-                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.UserID)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.UserID)</td>
+                    <th scope="row" class="text-center">@(Model.ToList().IndexOf(item) + 1)</th>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.TimeStart)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.TimeEnd)</td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
                     <td class="text-center">
                         <i class="fa-solid fa-bars"></i>
                     </td>

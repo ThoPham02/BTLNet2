@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HotelManagement.Areas.Admin.Models {
     public class RoomViews {
         [Display(Name = "Mã Phòng")]
-        public string RoomID { get; set; }
+        public int RoomID { get; set; }
 
         [Display(Name = "Phòng")]
         public string RoomName { get; set; }
@@ -15,7 +15,10 @@ namespace HotelManagement.Areas.Admin.Models {
         [Display(Name = "Loại Phòng")]
         public string RoomType { get; set; }
 
+        [Display(Name = "Giá")]
+        public int Price { get; set; }
+
         [Display(Name = "Trạng Thái")]
-        public string State { get; set; }
+        public int State { get; set; }
     }
 }
