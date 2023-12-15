@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace HotelManagement.Areas.Admin.Models {
     public class RoomBookingViews{
         [Display(Name = "Mã Đặt Phòng")]
-        public string RoomBookingID { get; set; }
+        public int RoomBookingID { get; set; }
 
         [Display(Name = "Phòng")]
         public string RoomName { get; set; }
 
         [Display(Name = "Ngày nhận")]
-        public string TimeStart { get; set; }
+        public int TimeStart { get; set; }
 
         [Display(Name = "Ngày Trả")]
-        public string TimeEnd { get; set; }
+        public int TimeEnd { get; set; }
 
         [Display(Name = "Khách")]
         public string Customer { get; set; }
@@ -25,6 +25,6 @@ namespace HotelManagement.Areas.Admin.Models {
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Trạng thái")]
-        public string BookingStatus { get; set; }
+        public int BookingStatus { get; set; }
     }
 }

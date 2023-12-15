@@ -122,3 +122,13 @@
     bottom: 0;
     right: 24px;
 }
+
+.home_add {
+    padding: 4px 8px;
+    border-radius: 8px;
+    background-color: #f3e5d1;
+}
+
+.home_add:hover {
+    cursor: pointer;
+}

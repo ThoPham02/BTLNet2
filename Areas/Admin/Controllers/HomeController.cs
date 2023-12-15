@@ -28,18 +28,39 @@ namespace HotelManagement.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICombinedService _combinedService;
+        private readonly ApplicationDbContext _context;
         public HomeController(
-            ILogger<HomeController> logger)
+            ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         // GET: /Admin/Index
         [HttpGet("/admin")]
         public IActionResult Index(string customer, string room, string status)
         {
-            // var model = _combinedService.GetData(customer, room, status);
+            var bookings = (from roomBooking in _context.RoomBooking
+                            join roomCus in _context.Room on roomBooking.RoomID equals roomCus.RoomID
+                            join booking in _context.Booking on roomBooking.BookingID equals booking.BookingID
+                            join cus in _context.Customers on booking.CustomerID equals cus.CustomerID
+                            select new RoomBookingViews
+                            {
+                                RoomBookingID = roomBooking.RoomBookingID,
+                                RoomName = roomCus.Name,
+                                TimeStart = booking.TimeStart,
+                                TimeEnd = booking.TimeEnd,
+                                Customer = cus.FullName,
+                                PhoneNumber = cus.Phone,
+                                BookingStatus = roomBooking.Status,
+                            }).ToList();
+
+            return View(bookings);
+        }
+
+        [HttpGet("/admin/create")]
+        public IActionResult Create()
+        {
             var model = new List<RoomBookingViews>();
 
             return View(model);
