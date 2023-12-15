@@ -2,17 +2,22 @@
 @model List<dynamic>
 @Html.Partial("_BookingSteps")
 @Html.Partial("_SectionTitle", "Đặt phòng")
+@{
+    DateTime? timeStart = TempData["timeStart"] as DateTime?;
+    DateTime? timeEnd = TempData["timeEnd"] as DateTime?;
+}
+
 @using (Html.BeginForm("DisplayAvailableRooms", "Home", FormMethod.Post))
 {
     <div class="container form-search">
         <div class="search_date">
             <div style="margin-right: 60px">
                 <label>Thời gian nhận phòng:</label>
-                <input type="date" />
+                <input type="date"/>
             </div>
             <div style="margin-right: 20px">
                 <label>Thời gian trả phòng:</label>
-                <input type="date" />
+                <input type="date " />
             </div>
         </div>
 
@@ -25,18 +30,10 @@
 
 
 <div class="container">
-    <h5 class="section-title section-title-center container" style="margin-top:62px; margin-bottom: 17px;">
-        <b style="background-color: #d1c7ba; flex: 0.3; margin-left: 160px;"></b>
-        <button style="background-color: #9fc3cf; border: none">
-            <span class="section-title-main" style="color: white; padding: 0 28px 0 28px; font-size: 18px;">Phòng
-                đôi</span>
-        </button>
-        <b style="background-color: #d1c7ba; flex: 0.3; margin-right: 160px;"></b>
-    </h5>
     <div class="room">
         @if (Model != null && Model.Any())
         {
-            @foreach (var item in Model.Where(x => x.RoomType.TypeName == "Phòng Đôi"))
+            @foreach (var item in Model)
             {
                 var room = item.Room;
                 var roomType = item.RoomType;
@@ -63,51 +60,6 @@
                     </a>
                 </div>
             }
-        }
-        else
-        {
-            <p>No data.</p>
-        }
-
-        <h5 class="section-title section-title-center container" style="margin-top:62px; margin-bottom: 17px;">
-            <b style="background-color: #d1c7ba; flex: 0.3; margin-left: 160px;"></b>
-            <button style="background-color: #9fc3cf; border: none">
-                <span class="section-title-main" style="color: white; padding: 0 28px 0 28px; font-size: 18px;">Phòng
-                    đơn</span>
-            </button>
-            <b style="background-color: #d1c7ba; flex: 0.3; margin-right: 160px;"></b>
-        </h5>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var item in Model.Where(x => x.RoomType.TypeName == "Phòng Đơn"))
-            {
-                var room = item.Room;
-                var roomType = item.RoomType;
-                <div class="room-cash">
-                    <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
-                    <div class="room_des">
-                        <p>
-                            <span class ="text_1">Mô tả: </span>
-                            @roomType.Description
-                        </p>
-                        <p>
-                            <span class ="text_1">Tên phòng:</span>
-                            @room.Name
-                        </p>
-                        
-                    </div>
-                    <p style="color: rgb(199, 68, 68); text-decoration: underline; font-size: 19px; font-weight: 600">Giá:
-                        @roomType.Price
-                    </p>
-                    <a asp-area="" asp-controller="Home" asp-action="BookingDetail">
-                        <button class="room_btn">Chọn phòng</button>
-                    </a>
-                </div>
-            }
-        }
-        else
-        {
-            <p>No data.</p>
         }
     </div>
 </div>

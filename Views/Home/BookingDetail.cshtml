@@ -1,6 +1,7 @@
 @Html.Partial("_BookingSteps")
 @Html.Partial("_SectionTitle", "Nhập thông tin chi tiết")
-@model dynamic
+@model HotelManagement.Models.BookingDetailViews;
+
 <div class="booking container">
     <div class="booking-infor">
         <div class="bki">
@@ -10,28 +11,46 @@
                         tin
                         chi tiết</p>
                     <label for="">Họ tên đầy đủ: </label>
-                    <input type="text">
+                    <input type="text" asp-for="FullName">
                     <br>
                     <label for="">Số điện thoại: </label>
-                    <input type="text">
+                    <input type="text" asp-for="PhoneNumber">
                     <br>
                     <label for="">Email: </label>
-                    <input type="text">
+                    <input type="text" asp-for="Email">
                 </div>
             </div>
         </div>
 
         <div class="bki-price">
             <div class="bki-padding">
-                <h5 style="text-align: center; font-size: 16px;">Tổng chi phí</h5>
-                <p>Phí phòng</p>
-                <p>Tên phòng: @Model.Room.Name</p>
+                <h5 style="text-align: center; font-size: 16px;">Đơn đặt phòng</h5>
+                <div class="detail-item">
+                    <p class="detail-item-first-child">Loại Phòng:</p>
+                    <p>@Model.RoomType</p>
+                </div>
+                <div class="detail-item">
+                    <p class="detail-item-first-child">Giá</p>
+                    <p>@Model.Price</p>
+                </div>
+                <div class="detail-item">
+                    <p class="detail-item-first-child">Số lượng</p>
+                    <input type="number" asp-for="Quantity" style="display: inline-block; width: 100px;">
+                </div>
+                @* <div class="detail-item">
+                    <p class="detail-item-first-child">Check-In</p>
+                    <p>@Model.TimeStart</p>
+                </div>
+                <div class="detail-item">
+                    <p class="detail-item-first-child">Check-Out</p>
+                    <p>@Model.TimeEnd</p>
+                </div> *@
             </div>
         </div>
     </div>
     <div class="book_button">
         <button class="btn_s">
-            Gửi thông tin
+            <a asp-area="" asp-controller="Home" asp-action="Confirm">Xác nhận</a>
         </button>
     </div>
 </div>

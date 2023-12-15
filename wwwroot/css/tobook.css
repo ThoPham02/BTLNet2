@@ -3,7 +3,8 @@
     height: 100px;
     background-color: #ac9c86;
 }
-.icon_tobook{
+
+.icon_tobook {
     position: fixed;
     bottom: 50%;
     right: 20px;
@@ -16,6 +17,7 @@
     line-height: 40px;
     cursor: pointer;
 }
+
 .popup {
     width: 400px;
     height: 200px;
@@ -30,11 +32,12 @@
     box-shadow: 12px 12px 22px rgba(0, 0, 0, 0.8);
     z-index: 1;
     display: none;
-    
+
 }
+
 .step {
     margin-top: 58px;
-    
+
 }
 
 .step>ul {
@@ -67,7 +70,7 @@
 
 .search_date {
     display: flex;
-    border-right: seashell solid 1px;  
+    border-right: seashell solid 1px;
     padding: 0 10px 0 10px;
 }
 
@@ -132,6 +135,7 @@
     flex-direction: column;
 } */
 }
+
 .booking-infor {
     display: flex;
     justify-content: space-around;
@@ -178,25 +182,38 @@
     justify-content: center;
 }
 
-.book_button>button{
+.book_button>button {
     box-shadow: 8px 2px 4px #d4ae7c;
 }
 
 .room_btn:hover {
     box-shadow: 8px 2px 4px rgba(204, 166, 63, 0.8);
 }
-.room_btn:active{
+
+.room_btn:active {
     box-shadow: 8px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.book_button>button:active{
+.book_button>button:active {
     box-shadow: 8px 2px 4px rgba(0, 0, 0, 0.8);
 }
+
 .text_1 {
-    color: rgb(185, 138, 138); 
-    text-decoration: underline; 
-    font-size: 19px; font-weight: 600
+    color: rgb(185, 138, 138);
+    text-decoration: underline;
+    font-size: 19px;
+    font-weight: 600
 }
+
 .text_2 {
     margin: 10px 5px 5px 5px;
+}
+
+.detail-item {
+    display: flex;
+}
+
+.detail-item-first-child {
+    font-weight: bold;
+    width: 120px;
 }

@@ -35,6 +35,8 @@ public class HomeController : Controller
     {
         var startTimeInt = startTime.Ticks;
         var endTimeInt = endTime.Ticks;
+        TempData["timeStart"] = startTime;
+        TempData["timeEnd"] = endTime;
         var availableRooms = _context.Room
             .Where(room =>
                 (room.State == Constants.TRANG_THAI_PHONG_TRONG &&
@@ -55,22 +57,24 @@ public class HomeController : Controller
     }
     public IActionResult BookingDetail(int roomId)
     {
-        // Lấy thông tin chi tiết phòng từ cơ sở dữ liệu
-        var roomDetail = _context.Room
-            .Where(room => room.RoomID == roomId)
-            .Select(room => new
-            {
-                Room = room,
-                RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
-            })
-            .FirstOrDefault();
+        var model = (from roomCus in _context.RoomType
+                     select new BookingDetailViews
+                     {
+                         RoomTypeID = roomCus.RoomTypeID,
+                         RoomType = roomCus.TypeName,
+                         Price = roomCus.Price,
+                         Quantity = 1
+                     }).FirstOrDefault();
 
-        if (roomDetail == null)
-        {
-            // Xử lý khi không tìm thấy phòng
-            return RedirectToAction("ToBook");
-        }
+        return View(model);
+    }
 
-        return View(roomDetail);
+    public IActionResult Confirm(BookingDetailViews model)
+    {
+        // create customer
+
+        // create booking
+
+        return View();
     }
 }
