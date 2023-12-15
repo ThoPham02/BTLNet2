@@ -68,6 +68,7 @@ builder.Services.AddAuthorization(option => {
 });
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddMvc();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

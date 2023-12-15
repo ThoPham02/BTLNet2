@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using HotelManagement.Data;
-
-
+using Newtonsoft.Json;
+using X.PagedList;
 namespace HotelManagement.Controllers;
 
 public class HomeController : Controller
@@ -26,9 +26,13 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    public IActionResult ToBook()
+    {
+        return View();
+    }
     
     [HttpGet]
-    public IActionResult DisplayAvailableRooms(DateTime startTime, DateTime endTime)
+    public IActionResult DisplayAvailableRooms(DateTime startTime, DateTime endTime, int page = 1, int pageSize = 3)
     {
         var startTimeInt = startTime.Ticks;
         var endTimeInt = endTime.Ticks;
@@ -48,32 +52,59 @@ public class HomeController : Controller
                  RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
              })
         .ToList<object>();
-        
-        return View(availableRooms);
+        var pagedList = availableRooms.ToPagedList(page, pageSize);
+        return View(pagedList);
     }
     public IActionResult Booking()
     {
         return View();
     }
-
-    public IActionResult BookingDetail(int roomId)
+    public IActionResult BookingDetail()
     {
-        // Lấy thông tin chi tiết phòng từ cơ sở dữ liệu
-        var roomDetail = _context.Room
-            .Where(room => room.RoomID == roomId)
-            .Select(room => new
-            {
-                Room = room,
-                RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
-            })
-            .FirstOrDefault();
-
-        if (roomDetail == null)
+        var bookingDetailsJson = TempData["BookingDetails"] as string;
+        if (bookingDetailsJson != null)
         {
-            // Xử lý khi không tìm thấy phòng
-            return View("BookingDetail", null);
+            var bookingDetails = JsonConvert.DeserializeObject<List<BookingDetail>>(bookingDetailsJson);
+            return View(bookingDetails);
+        }
+        else
+        {
+            return View();
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddRoom(int idRoom)
+    {
+        RoomType roomType = await _context.RoomType.FindAsync(idRoom);
+
+        // Lấy danh sách chi tiết đặt phòng từ cơ sở dữ liệu
+        List<BookingDetail> bookingDetails = await _context.BookingDetail
+            .Where(b => b.RoomTypeID == idRoom)
+            .ToListAsync();
+
+        BookingDetail bkDetail = bookingDetails.FirstOrDefault();
+        Console.WriteLine($"tttttt: {bkDetail}");
+        if (bkDetail == null)
+        {
+            // Nếu không có chi tiết đặt phòng, thêm một chi tiết mới
+            var newBookingDetail = new BookingDetail
+            {
+                RoomTypeID = idRoom,
+                Quantity = 1,
+            };
+
+            _context.BookingDetail.Add(newBookingDetail);
+        }
+        else
+        {
+            // Nếu chi tiết đặt phòng đã tồn tại, tăng số lượng lên 1
+            bkDetail.Quantity += 1;
         }
 
-        return View(roomDetail);
+        await _context.SaveChangesAsync();
+
+        // Chuyển hướng đến action BookingDetail để hiển thị thông tin
+        return RedirectToAction("BookingDetail", "Home");
     }
 }

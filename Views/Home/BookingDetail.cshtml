@@ -1,6 +1,6 @@
 @Html.Partial("_BookingSteps")
 @Html.Partial("_SectionTitle", "Nhập thông tin chi tiết")
-@model dynamic
+@model List<BookingDetail>
 <div class="booking container">
     <div class="booking-infor">
         <div class="bki">
@@ -26,14 +26,13 @@
 
                 <h5 style="text-align: center; font-size: 16px;">Tổng chi phí</h5>
                 <p>Phí phòng</p>
-                @if (Model == null)
-                {
-                    <p>Không tìm thấy phòng</p>
-                }
-                else
-                {
-                   <p>Tên phòng: @Model.Room.Name</p>
-                }
+                @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RoomTypeID</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
                 
             </div>
         </div>

@@ -33,8 +33,7 @@
     
 }
 .step {
-    margin-top: 58px;
-    
+    margin-top: 2%;
 }
 
 .step>ul {
@@ -123,6 +122,7 @@
     background-color: #dfab63;
     color: aliceblue;
     margin-bottom: 10px;
+    
 }
 
 .booking {
@@ -199,4 +199,7 @@
 }
 .text_2 {
     margin: 10px 5px 5px 5px;
+}
+.room-cash{
+    margin: 10px;
 }
