@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-
+using X.PagedList;
 namespace HotelManagement.Areas.Admin.Controllers {
 
     [Authorize(Roles = Constants.ROLE_ADMIN)]
@@ -37,7 +37,7 @@ namespace HotelManagement.Areas.Admin.Controllers {
 
         // GET: /Admin/Index
         [HttpGet("/admin/customer")]
-        public IActionResult Index(string customer, string room, string status)
+        public IActionResult Index(string customer, string room, string status, int? page = null)
         {
             var model = (from cus in _context.Customers
                          select new CustomerViews
@@ -47,8 +47,8 @@ namespace HotelManagement.Areas.Admin.Controllers {
                              PhoneNumber = cus.Phone,
                              Email = cus.Email
                          }).ToList();
-
-            return View(model);
+                         var models = model.ToPagedList(page ?? 1, 5);
+            return View(models);
         }
     }
 }

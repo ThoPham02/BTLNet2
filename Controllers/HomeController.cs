@@ -30,7 +30,7 @@ public class HomeController : Controller
     {
         return View();
     }
-    [HttpPost]
+    [HttpGet]
     public IActionResult DisplayAvailableRooms(DateTime startTime, DateTime endTime)
     {
         var startTimeInt = startTime.Ticks;
@@ -52,7 +52,6 @@ public class HomeController : Controller
                  RoomType = _context.RoomType.FirstOrDefault(rt => rt.RoomTypeID == room.RoomTypeID)
              })
         .ToList<object>();
-
         return View("ToBook", availableRooms);
     }
     public IActionResult BookingDetail(int roomId)

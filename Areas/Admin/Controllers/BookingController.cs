@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-
+using X.PagedList;
 namespace HotelManagement.Areas.Admin.Controllers
 {
 
@@ -39,7 +39,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         // GET: /Admin/Index
         [HttpGet("/admin/booking")]
-        public IActionResult Index(string customer, string room, int status)
+        public IActionResult Index(string customer, string room, int status, int? page = null)
         {
             var bookings = (from booking in _context.Booking
                             join cus in _context.Customers on booking.CustomerID equals cus.CustomerID
@@ -52,8 +52,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                                 TimeStart = booking.TimeStart,
                                 TimeEnd = booking.TimeEnd,
                             }).ToList();
-
-            return View(bookings);
+                            var bk = bookings.ToPagedList(page ?? 1, 5);
+            return View(bk);
         }
     }
 }

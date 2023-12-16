@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using X.PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -38,7 +39,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [HttpGet("/admin/room")]
-        public IActionResult Index(string room = "", int status = 0)
+        public IActionResult Index(string room = "", int status = 0, int? page = null)
         {
             var model = (from roomCus in _context.Room
                          join type in _context.RoomType on roomCus.RoomTypeID equals type.RoomTypeID
@@ -51,8 +52,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                              Price = type.Price,
                              State = roomCus.State
                          }).ToList();
-
-            return View(model);
+                         var model2 = model.ToPagedList(page ?? 1, 5);
+            return View(model2);
         }
     }
 }
