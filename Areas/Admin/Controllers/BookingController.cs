@@ -15,7 +15,7 @@ namespace HotelManagement.Areas.Admin.Controllers
     
     // [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
-    [Route("/Admin/[action]")]
+    [Route("/Booking/[action]")]
     public class BookingController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +26,6 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         // GET: Admin/Booking
-        [HttpGet("/admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Booking.ToListAsync());
