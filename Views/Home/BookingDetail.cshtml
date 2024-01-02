@@ -53,7 +53,7 @@
                     <div class="detail-item">
                         <p class="detail-item-first-child">Số lượng</p>
                         <input type="number" asp-for="Quantity" style="display: inline-block; width: 100px;"
-                            id="Quantity">
+                            id="Quantity" oninput="updateTotalAmount()">
                     </div>
                     <div class="detail-item">
                         <p class="detail-item-first-child">Thành tiền:</p>
@@ -69,3 +69,12 @@
         </div>
     </div>
 </form>
+<script>
+    function updateTotalAmount() {
+        var quantity = document.getElementById('Quantity').value;
+        var price = @(Model.Price); 
+        var totalAmount = price * quantity;
+
+        document.getElementById('TotalAmount').innerText = totalAmount;
+    }
+</script>

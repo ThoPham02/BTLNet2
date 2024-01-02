@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HotelManagement.Data;
 using HotelManagement.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using X.PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -25,10 +25,13 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         // GET: Admin/Room
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Room.ToListAsync());
+        public async Task<IActionResult> Index(int? page)
+        {      
+            var rooms = _context.Room.ToList().ToPagedList(page ?? 1, 5);
+            
+            return View(rooms);
         }
+
 
         // GET: Admin/Room/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -44,8 +47,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
             return View(room);
+
         }
 
         // GET: Admin/Room/Create
