@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
-    [Authorize(Roles = Constants.ROLE_ADMIN)]
+    // [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
-    [Route("/Home/[action]")]
+    [Route("/RoomBooking/[action]")]
     public class RoomBookingController : Controller
     {
         private readonly ApplicationDbContext _context;

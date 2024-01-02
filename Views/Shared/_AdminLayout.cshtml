@@ -20,33 +20,38 @@
     <div class="device"></div>
     <div class="admin_body">
         <div class="admin_side">
-            <a sp-area="Admin" asp-controller="Home" asp-action="Index" class="sidebar_item">
-                <i class="fa fa-home"></i>
-                <h5>Trang chủ</h5>
-            </a>
-             <a sp-area="Admin" asp-controller="Room" asp-action="Index" class="sidebar_item">
-                <i class="fas fa-door-open"></i>
-                <h5>Phòng</h5>
-            </a>
-             <a sp-area="Admin" asp-controller="Booking" asp-action="Index" class="sidebar_item">
+            <a sp-area="Admin" asp-controller="Booking" asp-action="Index" class="sidebar_item">
                 <i class="fa-solid fa-book"></i>
                 <h5>Đặt Phòng</h5>
             </a>
-             <a sp-area="Admin" asp-controller="Customer" asp-action="Index" class="sidebar_item">
+            <a sp-area="Admin" asp-controller="RoomBooking" asp-action="Index" class="sidebar_item">
+                <i class="fa-solid fa-shuffle"></i>
+                <h5>Giao Phòng</h5>
+            </a>
+            <a sp-area="Admin" asp-controller="Customers" asp-action="Index" class="sidebar_item">
                 <i class="fa-solid fa-user"></i>
                 <h5>Khách Hàng</h5>
             </a>
-            <div style="height: 180px;"></div>
+            <a sp-area="Admin" asp-controller="Room" asp-action="Index" class="sidebar_item">
+                <i class="fas fa-door-open"></i>
+                <h5>Phòng</h5>
+            </a>
+            <a sp-area="Admin" asp-controller="RoomType" asp-action="Index" class="sidebar_item">
+                <i class="fa-solid fa-ranking-star"></i>
+                <h5>Hạng Phòng</h5>
+            </a>
+            <div style="height: 350px;"></div>
             <hr>
             <a sp-area="Admin" asp-controller="Home" asp-action="Index" class="sidebar_item bottom">
                 <i class="fa-solid fa-gear"></i>
                 <h5>Cài Đặt</h5>
             </a>
         </div>
-        <div class="admin_main">
+        <div class="admin_main" style="padding: 20px;">
             @RenderBody()
         </div>
     </div>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

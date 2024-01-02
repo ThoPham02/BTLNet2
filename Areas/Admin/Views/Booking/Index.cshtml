@@ -2,46 +2,69 @@
 
 @{
     ViewData["Title"] = "Index";
+    Dictionary<int, string> MAP_TRANG_THAI_BOOKING = new Dictionary<int, string>()
+    {
+        { 1, "Chờ Duyệt" },
+        { 2, "Đã Duyệt" },
+        { 4, "Đang Sử Dụng" },
+        { 8, "Hoàn Thành" },
+        { 16, "Hủy" }
+    };
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a asp-area="Admin" asp-controller="Booking" asp-action="Create">Create</a>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CustomerID)
+                STT
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeStart)
+                Khách hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeEnd)
+                Số điện thoại
             </th>
-            <th></th>
+            <th>
+                Bắt đầu
+            </th>
+            <th>
+                Kết thúc
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Thao tác
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeEnd)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookingID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(Model.ToList().IndexOf(item) + 1)
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Utils.IntToDateTime(item.TimeStart).Date.ToString("d")
+                </td>
+                <td>
+                    @Utils.IntToDateTime(item.TimeEnd).Date.ToString("d")
+                </td>
+                <td>
+                    @MAP_TRANG_THAI_BOOKING[1]
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.BookingID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
