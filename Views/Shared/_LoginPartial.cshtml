@@ -1,28 +1,36 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using HotelManagement.Models
-
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
-<form asp-area="Identity" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
-    <div class="dropdown">
-        <a class="btn btn-light dropdown-toggle fw-bold" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Xin chào @UserManager.GetUserName(User)!
-        </a>
+    <form asp-area="Identity" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+        <div class="dropdown info">
+            <a class="btn btn-light dropdown-toggle fw-bold" href="#" role="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Xin chào @UserManager.GetUserName(User)!
+            </a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item text-capitalize" asp-area="Identity" asp-controller="Manage" asp-action="Index" title="Manage" style="line-height: 36px;">Thông tin tài khoản</a></li>
-            <li><button type="submit" class="text-reset text-capitalize dropdown-item" style="line-height: 36px; border-radius: 0;">Đăng xuất</button></li>
-        </ul>
-    </div>
-</form>
+            <ul class="dropdown-menu info-drop" aria-labelledby="dropdownMenuLink">
+                @* <li>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Manage/Index">
+                        <button type="submit" class="text-reset text-capitalize dropdown-item"
+                            style="line-height: 36px; border-radius: 0;">Thông tin tài khoản</button>
+                    </form>
+                </li> *@
+                <li>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                        asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="text-reset text-capitalize dropdown-item"
+                            style="line-height: 36px; border-radius: 0;">Đăng xuất</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </form>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <a class="nav-link fw-bold btn-light" style="padding: 12px 24px; border-radius: 12px;" asp-area="Identity"
-            asp-controller="Account" asp-action="Login">Đăng nhập</a>
-    </ul>
+    <a class="nav-link fw-bold btn-light" style="padding: 12px 24px; border-radius: 12px;" asp-area="Identity"
+        asp-page="/Account/Login">Đăng nhập</a>
 }

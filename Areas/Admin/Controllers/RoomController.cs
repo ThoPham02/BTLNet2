@@ -1,59 +1,162 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using HotelManagement.Areas.Admin.Models;
-using HotelManagement.ExtendMethods;
-using HotelManagement.Models;
-using HotelManagement.Data;
-using HotelManagement.Services;
-using HotelManagement.Utilities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
-using X.PagedList;
+using Microsoft.EntityFrameworkCore;
+using HotelManagement.Data;
+using HotelManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
-
     [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
     [Route("/Home/[action]")]
     public class RoomController : Controller
     {
-        private readonly ILogger<RoomController> _logger;
         private readonly ApplicationDbContext _context;
-        public RoomController(
-            ILogger<RoomController> logger, ApplicationDbContext context)
+
+        public RoomController(ApplicationDbContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
-        [HttpGet("/admin/room")]
-        public IActionResult Index(string room = "", int status = 0, int? page = null)
+        // GET: Admin/Room
+        public async Task<IActionResult> Index()
         {
-            var model = (from roomCus in _context.Room
-                         join type in _context.RoomType on roomCus.RoomTypeID equals type.RoomTypeID
-                         where roomCus.Name.Contains(room) && (status == 0 || roomCus.State == status)
-                         select new RoomViews
-                         {
-                             RoomID = roomCus.RoomID,
-                             RoomName = roomCus.Name,
-                             RoomType = type.TypeName,
-                             Price = type.Price,
-                             State = roomCus.State
-                         }).ToList();
-                         var model2 = model.ToPagedList(page ?? 1, 5);
-            return View(model2);
+            return View(await _context.Room.ToListAsync());
+        }
+
+        // GET: Admin/Room/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var room = await _context.Room
+                .FirstOrDefaultAsync(m => m.RoomID == id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            return View(room);
+        }
+
+        // GET: Admin/Room/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Admin/Room/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("RoomID,RoomTypeID,Name,State")] Room room)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(room);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(room);
+        }
+
+        // GET: Admin/Room/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var room = await _context.Room.FindAsync(id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            return View(room);
+        }
+
+        // POST: Admin/Room/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("RoomID,RoomTypeID,Name,State")] Room room)
+        {
+            if (id != room.RoomID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(room);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RoomExists(room.RoomID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(room);
+        }
+
+        // GET: Admin/Room/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var room = await _context.Room
+                .FirstOrDefaultAsync(m => m.RoomID == id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            return View(room);
+        }
+
+        // POST: Admin/Room/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var room = await _context.Room.FindAsync(id);
+            if (room != null)
+            {
+                _context.Room.Remove(room);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool RoomExists(int id)
+        {
+            return _context.Room.Any(e => e.RoomID == id);
         }
     }
 }

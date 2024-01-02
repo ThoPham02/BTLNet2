@@ -1,56 +1,71 @@
-@Html.Partial("_BookingSteps")
-@Html.Partial("_SectionTitle", "Nhập thông tin chi tiết")
 @model HotelManagement.Models.BookingDetailViews;
 
-<div class="booking container">
-    <div class="booking-infor">
-        <div class="bki">
-            <div class="bki-padding">
-                <div class="bki_2">
-                    <p style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: bold">Thông
-                        tin
-                        chi tiết</p>
-                    <label for="">Họ tên đầy đủ: </label>
-                    <input type="text" asp-for="FullName">
-                    <br>
-                    <label for="">Số điện thoại: </label>
-                    <input type="text" asp-for="PhoneNumber">
-                    <br>
-                    <label for="">Email: </label>
-                    <input type="text" asp-for="Email">
-                </div>
-            </div>
-        </div>
+@{
+    ViewData["Title"] = "Đặt Phòng";
+}
 
-        <div class="bki-price">
-            <div class="bki-padding">
-                <h5 style="text-align: center; font-size: 16px;">Đơn đặt phòng</h5>
-                <div class="detail-item">
-                    <p class="detail-item-first-child">Loại Phòng:</p>
-                    <p>@Model.RoomType</p>
+<h4 class="section-title section-title-center container" style="margin-top:20px">
+    <b style="background-color: #d1c7ba;"></b>
+    <span class="section-title-main" style="color: #df932a; padding: 0 28px 0 28px; font-size: 27px">Thông Tin Khách
+        Hàng</span>
+    <b style="background-color: #d1c7ba;"></b>
+</h4>
+
+<form action="">
+    <div class="booking container">
+        <div class="booking-infor">
+            <div class="bki">
+                <div class="bki-padding">
+                    <div class="bki_2">
+                        <p style="margin-top: 10px; text-align: center; font-size: 16px; font-weight: bold">Thông tin
+                            chi tiết</p>
+                        <label for="">Họ tên đầy đủ: </label>
+                        <input type="text" asp-for="FullName">
+                        <br>
+                        <label for="">Số điện thoại: </label>
+                        <input type="text" asp-for="PhoneNumber">
+                        <br>
+                        <label for="">Email: </label>
+                        <input type="text" asp-for="Email">
+                    </div>
                 </div>
-                <div class="detail-item">
-                    <p class="detail-item-first-child">Giá</p>
-                    <p>@Model.Price</p>
+            </div>
+
+            <div class="bki-price">
+                <div class="bki-padding">
+                    <h5 style="text-align: center; font-size: 16px;">Đơn đặt phòng</h5>
+                    <div class="detail-item">
+                        <p class="detail-item-first-child">Thời gian từ: </p>
+                        <p>@Model.TimeStart.Date.ToString("d")</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-item-first-child">đến: </p>
+                        <p>@Model.TimeEnd.Date.ToString("d")</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-item-first-child">Loại Phòng:</p>
+                        <p>@Model.RoomType</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-item-first-child">Giá</p>
+                        <p>@Model.Price</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-item-first-child">Số lượng</p>
+                        <input type="number" asp-for="Quantity" style="display: inline-block; width: 100px;"
+                            id="Quantity">
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-item-first-child">Thành tiền:</p>
+                        <p id="TotalAmount">@Model.Price</p>
+                    </div>
                 </div>
-                <div class="detail-item">
-                    <p class="detail-item-first-child">Số lượng</p>
-                    <input type="number" asp-for="Quantity" style="display: inline-block; width: 100px;">
-                </div>
-                @* <div class="detail-item">
-                    <p class="detail-item-first-child">Check-In</p>
-                    <p>@Model.TimeStart</p>
-                </div>
-                <div class="detail-item">
-                    <p class="detail-item-first-child">Check-Out</p>
-                    <p>@Model.TimeEnd</p>
-                </div> *@
             </div>
         </div>
+        <div class="book_button">
+            <button class="btn_s" type="submit">
+                <a asp-area="" asp-controller="Home" asp-action="Confirm">Xác nhận</a>
+            </button>
+        </div>
     </div>
-    <div class="book_button">
-        <button class="btn_s">
-            <a asp-area="" asp-controller="Home" asp-action="Confirm">Xác nhận</a>
-        </button>
-    </div>
-</div>
+</form>

@@ -1,61 +1,47 @@
-@model IEnumerable<HotelManagement.Areas.Admin.Models.BookingViews>
-@using X.PagedList;
-@using X.PagedList.Mvc.Core;
-<div class="admin_home">
-    <div class="home_header">
-        <div class="home_title">
-            <i class="fa-solid fa-book"></i>
-            Quản Lý Đơn Đặt Phòng
-        </div>
-        <div class="home_add">
-            Thêm Mới
-        </div>
-    </div>
-    <div class="search">
-        <form action="" class="search_form">
-            <div class="form-group col-4">
-                <label for="exampleFormControlInput1">Tên Khách Hàng</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="@ViewBag.customer">
-            </div>
-            <div class="form-group col-3">
-                <label for="exampleFormControlInput1">Số điện thoại</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="@ViewBag.customer">
-            </div>
-            <div class="search_btn" type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-        </form>
-    </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="fw-regular text-center">STT</th>
-                <th class="fw-regular w-25 text-center">Khách Hàng</th>
-                <th class="fw-regular text-center">Số Điện Thoại</th>
-                <th class="fw-regular text-center">Ngày nhận</th>
-                <th class="fw-regular text-center">Ngày trả</th>
-                <th class="fw-regular w-25 text-center">Chi Tiết Đơn</th>
-                <th class="fw-regular text-center">Giá Trị</th>
-                <th class="fw-regular text-center">Thao tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <th scope="row" class="text-center">@(Model.ToList().IndexOf(item) + 1)</th>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.Name)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.TimeStart)</td>
-                    <td class="text-center">@Html.DisplayFor(modelItem => item.TimeEnd)</td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        <i class="fa-solid fa-bars"></i>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    @Html.PagedListPager((IPagedList) Model, page => Url.Action("Index", new {page = page}), new X.PagedList.Web.Common.PagedListRenderOptions { LiElementClasses = new string[] {"page-item"}, PageClasses = new string[] { "page-link" }})
-</div>
+@model IEnumerable<HotelManagement.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeEnd)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeEnd)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BookingID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

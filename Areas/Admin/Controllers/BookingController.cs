@@ -1,59 +1,164 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using HotelManagement.Areas.Admin.Models;
-using HotelManagement.ExtendMethods;
-using HotelManagement.Models;
-using HotelManagement.Data;
-using HotelManagement.Services;
-using HotelManagement.Utilities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
-using X.PagedList;
+using Microsoft.EntityFrameworkCore;
+using HotelManagement.Data;
+using HotelManagement.Models;
+using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Authorization;
+
 namespace HotelManagement.Areas.Admin.Controllers
 {
-
-    [Authorize(Roles = Constants.ROLE_ADMIN)]
+    
+    // [Authorize(Roles = Constants.ROLE_ADMIN)]
     [Area("Admin")]
-    [Route("/Home/[action]")]
+    [Route("/Admin/[action]")]
     public class BookingController : Controller
     {
-        private readonly ILogger<BookingController> _logger;
         private readonly ApplicationDbContext _context;
-        public BookingController(
-            ILogger<BookingController> logger, ApplicationDbContext context)
+
+        public BookingController(ApplicationDbContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
-        // GET: /Admin/Index
-        [HttpGet("/admin/booking")]
-        public IActionResult Index(string customer, string room, int status, int? page = null)
+        // GET: Admin/Booking
+        [HttpGet("/admin")]
+        public async Task<IActionResult> Index()
         {
-            var bookings = (from booking in _context.Booking
-                            join cus in _context.Customers on booking.CustomerID equals cus.CustomerID
-                            // join bookingDetail in _context.BookingDetail on booking.BookingID equals bookingDetail.BookingID into details
-                            select new BookingViews
-                            {
-                                BookingID = booking.BookingID,
-                                Name = cus.FullName,
-                                PhoneNumber = cus.Phone,
-                                TimeStart = booking.TimeStart,
-                                TimeEnd = booking.TimeEnd,
-                            }).ToList();
-                            var bk = bookings.ToPagedList(page ?? 1, 5);
-            return View(bk);
+            return View(await _context.Booking.ToListAsync());
+        }
+
+        // GET: Admin/Booking/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _context.Booking
+                .FirstOrDefaultAsync(m => m.BookingID == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return View(booking);
+        }
+
+        // GET: Admin/Booking/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Admin/Booking/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("BookingID,CustomerID,TimeStart,TimeEnd")] Booking booking)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(booking);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(booking);
+        }
+
+        // GET: Admin/Booking/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _context.Booking.FindAsync(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
+        }
+
+        // POST: Admin/Booking/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("BookingID,CustomerID,TimeStart,TimeEnd")] Booking booking)
+        {
+            if (id != booking.BookingID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(booking);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BookingExists(booking.BookingID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(booking);
+        }
+
+        // GET: Admin/Booking/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _context.Booking
+                .FirstOrDefaultAsync(m => m.BookingID == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return View(booking);
+        }
+
+        // POST: Admin/Booking/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var booking = await _context.Booking.FindAsync(id);
+            if (booking != null)
+            {
+                _context.Booking.Remove(booking);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool BookingExists(int id)
+        {
+            return _context.Booking.Any(e => e.BookingID == id);
         }
     }
 }

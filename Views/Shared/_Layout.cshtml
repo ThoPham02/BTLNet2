@@ -1,12 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using HotelManagement.Models
-@using Microsoft.AspNetCore.Mvc.ViewEngines
-
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
-@inject ICompositeViewEngine Engine
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -87,19 +79,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/popup.js"></script>
-    @* <script>
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
-
-        signUpButton.addEventListener('click', () => {
-            container.classList.add('right-panel-active');
-        });
-
-        signInButton.addEventListener('click', () => {
-            container.classList.remove('right-panel-active');
-        });
-    </script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

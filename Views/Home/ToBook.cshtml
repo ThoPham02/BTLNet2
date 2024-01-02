@@ -1,23 +1,27 @@
 @using HotelManagement.Models
 @model List<dynamic>
-@Html.Partial("_BookingSteps")
-@Html.Partial("_SectionTitle", "Đặt phòng")
+
 @{
-    DateTime? timeStart = TempData["timeStart"] as DateTime?;
-    DateTime? timeEnd = TempData["timeEnd"] as DateTime?;
+    ViewData["Title"] = "Đặt Phòng";
 }
+
+<h4 class="section-title section-title-center container" style="margin-top:20px">
+    <b style="background-color: #d1c7ba;"></b>
+    <span class="section-title-main" style="color: #df932a; padding: 0 28px 0 28px; font-size: 27px">Chọn Phòng</span>
+    <b style="background-color: #d1c7ba;"></b>
+</h4>
 
 @using (Html.BeginForm("DisplayAvailableRooms", "Home", FormMethod.Get))
 {
     <div class="container form-search">
         <div class="search_date">
-            <div style="margin-right: 60px">
+            <div style="margin-right: 20px">
                 <label>Thời gian nhận phòng:</label>
-                <input type="date"/>
+                <input type="date" id="startDate" value=""/>
             </div>
             <div style="margin-right: 20px">
                 <label>Thời gian trả phòng:</label>
-                <input type="date" />
+                <input type="date" id="endDate"/>
             </div>
         </div>
 
@@ -37,29 +41,31 @@
             {
                 var room = item.Room;
                 var roomType = item.RoomType;
-                <div class="room-cash">
+                <div class="room-cash" style="position: relative;">
                     <img src="~/imgs/PL1_1.jpg" alt="" class="room_img">
                     <div class="room_des">
-                        <p style="font-weight: 0;">
-                            <span class ="text_1">Mô tả: </span>
-                            @roomType.Description
+                        <p style="font-size: 24px; ">
+                            @roomType.TypeName
                         </p>
                         <p>
-                            <span class ="text_1">Tên phòng:
-                            </span>
-                            @room.Name
+                            @roomType.Description
                         </p>
             
                     </div>
                     <p style="color: rgb(199, 68, 68); text-decoration: underline; font-size: 19px; font-weight: 600"> Giá:
                         @roomType.Price
                     </p>
-                    @* <a asp-area="" asp-controller="Home" asp-action="BookingDetail"> *@
-                    <a href="@Url.Action("BookingDetail", "Home", new { roomId = room.RoomID })">
+
+
+                    <a href="@Url.Action("BookingDetail", "Home", new { roomId = room.RoomID})" style="position: absolute; bottom: 0">
                         <button class="room_btn">Chọn phòng</button>
                     </a>
                 </div>
             }
+        } else {
+            <div style="margin-top: 50px; ">
+                Hiện không có phòng phù hợp với yêu cầu!
+            </div>
         }
     </div>
 </div>

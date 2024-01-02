@@ -39,7 +39,7 @@ public class HomeController : Controller
         TempData["timeEnd"] = endTime;
         var availableRooms = _context.Room
             .Where(room =>
-                (room.State == Constants.TRANG_THAI_PHONG_TRONG &&
+                (
                 !_context.RoomBooking.Any(rb =>
                     rb.RoomID == room.RoomID &&
                     (rb.Status == Constants.TRANG_THAI_DAT_PHONG_CHO_DUYET ||
@@ -54,15 +54,18 @@ public class HomeController : Controller
         .ToList<object>();
         return View("ToBook", availableRooms);
     }
-    public IActionResult BookingDetail(int roomId)
+    public IActionResult BookingDetail(int roomId, DateTime timeStart, DateTime timeEnd)
     {
         var model = (from roomCus in _context.RoomType
+                     where roomCus.RoomTypeID == roomId
                      select new BookingDetailViews
                      {
                          RoomTypeID = roomCus.RoomTypeID,
                          RoomType = roomCus.TypeName,
                          Price = roomCus.Price,
-                         Quantity = 1
+                         Quantity = 1,
+                         TimeStart = timeStart,
+                         TimeEnd = timeEnd
                      }).FirstOrDefault();
 
         return View(model);
